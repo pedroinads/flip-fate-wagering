@@ -17,6 +17,7 @@ import Customization from "./pages/admin/Customization";
 import Integrations from "./pages/admin/Integrations";
 import Reports from "./pages/admin/Reports";
 import Transactions from "./pages/admin/Transactions";
+import Settings from "./pages/admin/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/admin/integrations" element={<Integrations />} />
             <Route path="/admin/reports" element={<Reports />} />
             <Route path="/admin/transactions" element={<Transactions />} />
+            <Route path="/admin/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
