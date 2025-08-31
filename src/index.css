@@ -2,41 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Casino-style design system with dark elegance and golden accents */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark casino theme */
+    --background: 220 13% 9%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 224 12% 12%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 224 12% 12%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Golden primary for premium feel */
+    --primary: 43 96% 56%;
+    --primary-foreground: 220 13% 9%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Subtle secondary */
+    --secondary: 215 25% 20%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 25% 16%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 43 96% 56%;
+    --accent-foreground: 220 13% 9%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Success green for wins */
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    /* Danger red for losses */
+    --destructive: 0 75% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 25% 20%;
+    --input: 215 25% 16%;
+    --ring: 43 96% 56%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Casino-specific tokens */
+    --casino-bg: 220 13% 9%;
+    --casino-surface: 224 12% 12%;
+    --casino-surface-elevated: 215 25% 16%;
+    --casino-gold: 43 96% 56%;
+    --casino-gold-muted: 43 96% 45%;
+    --casino-win: 142 76% 36%;
+    --casino-lose: 0 75% 60%;
+
+    /* Gradients */
+    --gradient-casino: linear-gradient(135deg, hsl(220 13% 9%), hsl(224 12% 12%));
+    --gradient-gold: linear-gradient(135deg, hsl(43 96% 56%), hsl(45 93% 47%));
+    --gradient-card: linear-gradient(135deg, hsl(224 12% 12%), hsl(215 25% 16%));
+
+    /* Shadows */
+    --shadow-casino: 0 10px 30px -5px hsl(220 13% 4% / 0.8);
+    --shadow-gold: 0 0 20px hsl(43 96% 56% / 0.3);
+    --shadow-elevated: 0 20px 40px -10px hsl(220 13% 4% / 0.9);
+
+    /* Animations */
+    --transition-casino: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spin: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --sidebar-background: 0 0% 98%;
 
