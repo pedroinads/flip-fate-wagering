@@ -81,25 +81,27 @@ export default function Game() {
       <header className="border-b border-casino-gold/20 bg-casino-surface/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div>
-              <h1 className="text-xl font-bold text-casino-gold">🪙 Cara ou Coroa</h1>
-              <p className="text-sm text-muted-foreground">
+            <div className="flex-1">
+              <h1 className="text-lg sm:text-xl font-bold text-casino-gold">🪙 Cara ou Coroa</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
                 Bem-vindo, {user.email?.split('@')[0]}
               </p>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <Card className="px-4 py-2 bg-casino-surface border-casino-gold/20">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Card className="px-2 sm:px-4 py-2 bg-casino-surface border-casino-gold/20">
                 <div className="text-center">
-                  <div className="text-lg font-bold text-casino-gold">
+                  <div className="text-sm sm:text-lg font-bold text-casino-gold">
                     R$ {balance.toFixed(2)}
                   </div>
-                  <div className="text-xs text-muted-foreground">Saldo</div>
+                  <div className="text-xs text-muted-foreground hidden sm:block">Saldo</div>
                 </div>
               </Card>
               
-              <WalletPanel userId={user.id} onBalanceUpdate={setBalance} />
-              <BetsHistory userId={user.id} />
+              <div className="hidden sm:flex space-x-2">
+                <WalletPanel userId={user.id} onBalanceUpdate={setBalance} />
+                <BetsHistory userId={user.id} />
+              </div>
               
               <Button
                 variant="outline"
@@ -107,20 +109,26 @@ export default function Game() {
                 onClick={handleSignOut}
                 className="border-casino-gold/20 hover:bg-casino-gold/10"
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sair
+                <LogOut className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Sair</span>
               </Button>
             </div>
+          </div>
+          
+          {/* Mobile Actions */}
+          <div className="flex justify-center space-x-4 py-2 sm:hidden border-t border-casino-gold/20">
+            <WalletPanel userId={user.id} onBalanceUpdate={setBalance} />
+            <BetsHistory userId={user.id} />
           </div>
         </div>
       </header>
 
       {/* Main Game Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Game Section */}
           <div className="lg:col-span-2">
-            <Card className="p-8 bg-gradient-card border-casino-gold/20 shadow-casino">
+            <Card className="p-4 sm:p-8 bg-gradient-card border-casino-gold/20 shadow-casino">
               <CoinFlip 
                 onBet={handleBet}
                 balance={balance}
@@ -130,7 +138,7 @@ export default function Game() {
           </div>
           
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Game Info */}
             <Card className="p-6 bg-gradient-card border-casino-gold/20">
               <h3 className="text-lg font-semibold text-casino-gold mb-4">

@@ -30,6 +30,8 @@ interface WalletPanelProps {
   onBalanceUpdate: (balance: number) => void;
 }
 
+const depositAmounts = [10, 30, 50, 100, 300, 500];
+
 export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
   const [walletData, setWalletData] = useState<WalletData>({ balance: 0, totalDeposited: 0, totalWithdrawn: 0 });
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -252,18 +254,43 @@ export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
           </TabsList>
           
           <TabsContent value="deposit" className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="deposit-amount">Valor do Depósito</Label>
-              <Input
-                id="deposit-amount"
-                type="number"
-                min="1"
-                step="0.01"
-                value={depositAmount}
-                onChange={(e) => setDepositAmount(e.target.value)}
-                placeholder="R$ 0,00"
-                className="bg-casino-surface border-casino-gold/20"
-              />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label className="text-casino-gold font-semibold">Valores Recomendados</Label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {depositAmounts.map((amount) => (
+                    <Button
+                      key={amount}
+                      variant="outline"
+                      onClick={() => setDepositAmount(amount.toString())}
+                      className={`text-sm relative border-casino-gold/30 hover:border-casino-gold hover:bg-casino-gold/10 ${
+                        amount === 30 ? "border-2 border-casino-gold bg-casino-gold/20" : ""
+                      }`}
+                    >
+                      R$ {amount}
+                      {amount === 30 && (
+                        <span className="absolute -top-2 -right-2 bg-casino-gold text-casino-bg text-xs px-1.5 py-0.5 rounded-full font-bold">
+                          POPULAR
+                        </span>
+                      )}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="deposit-amount">Ou digite um valor</Label>
+                <Input
+                  id="deposit-amount"
+                  type="number"
+                  min="1"
+                  step="0.01"
+                  value={depositAmount}
+                  onChange={(e) => setDepositAmount(e.target.value)}
+                  placeholder="R$ 0,00"
+                  className="bg-casino-surface border-casino-gold/20"
+                />
+              </div>
             </div>
             <Button 
               onClick={handleDeposit}

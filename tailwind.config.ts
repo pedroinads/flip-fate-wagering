@@ -99,9 +99,26 @@ export default {
 					}
 				},
 				'coin-flip': {
-					'0%': { transform: 'rotateY(0deg)' },
-					'50%': { transform: 'rotateY(1800deg)' },
-					'100%': { transform: 'rotateY(3600deg)' }
+					'0%': { 
+						transform: 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)',
+						filter: 'drop-shadow(0 0 10px hsl(var(--casino-gold) / 0.3))'
+					},
+					'25%': { 
+						transform: 'perspective(1000px) rotateY(450deg) rotateX(180deg) scale(1.1)',
+						filter: 'drop-shadow(0 0 20px hsl(var(--casino-gold) / 0.6))'
+					},
+					'50%': { 
+						transform: 'perspective(1000px) rotateY(900deg) rotateX(360deg) scale(1.2)',
+						filter: 'drop-shadow(0 0 30px hsl(var(--casino-gold) / 0.8))'
+					},
+					'75%': { 
+						transform: 'perspective(1000px) rotateY(1350deg) rotateX(540deg) scale(1.1)',
+						filter: 'drop-shadow(0 0 20px hsl(var(--casino-gold) / 0.6))'
+					},
+					'100%': { 
+						transform: 'perspective(1000px) rotateY(1800deg) rotateX(720deg) scale(1)',
+						filter: 'drop-shadow(0 0 10px hsl(var(--casino-gold) / 0.3))'
+					}
 				},
 				'fade-in': {
 					'0%': { opacity: '0', transform: 'translateY(10px)' },

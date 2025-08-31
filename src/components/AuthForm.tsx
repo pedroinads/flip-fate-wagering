@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import casinoHeroBg from '@/assets/casino-hero-bg.jpg';
 
 export function AuthForm() {
   const [email, setEmail] = useState('');
@@ -47,7 +48,7 @@ export function AuthForm() {
     } else {
       toast({
         title: "Cadastro realizado!",
-        description: "Verifique seu email para confirmar o cadastro.",
+        description: "Bem-vindo! Você já pode começar a apostar.",
       });
     }
     
@@ -55,11 +56,19 @@ export function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-casino p-4">
-      <Card className="w-full max-w-md bg-gradient-card border-casino-gold/20 shadow-casino">
+    <div 
+      className="min-h-screen flex items-center justify-center bg-gradient-casino p-4 relative"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${casinoHeroBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <Card className="w-full max-w-md bg-gradient-card/95 backdrop-blur-sm border-casino-gold/20 shadow-casino">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-casino-gold">Cara ou Coroa</CardTitle>
-          <CardDescription>Entre ou cadastre-se para começar a apostar</CardDescription>
+          <CardTitle className="text-2xl sm:text-3xl text-casino-gold">🪙 Cara ou Coroa</CardTitle>
+          <CardDescription className="text-sm sm:text-base">Entre ou cadastre-se para começar a apostar</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
