@@ -1,1 +1,10 @@
 project_id = "ozubododfkoeyqpxiifl"
+
+[functions.place-bet]
+verify_jwt = true
+
+[functions.process-deposit]
+verify_jwt = true
+
+[functions.process-withdrawal]
+verify_jwt = true
