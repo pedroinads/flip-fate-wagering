@@ -15,6 +15,8 @@ import WithdrawalApprovals from "./pages/admin/WithdrawalApprovals";
 import LiveUsers from "./pages/admin/LiveUsers";
 import Customization from "./pages/admin/Customization";
 import Integrations from "./pages/admin/Integrations";
+import Reports from "./pages/admin/Reports";
+import Transactions from "./pages/admin/Transactions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +53,8 @@ const App = () => (
             <Route path="/admin/live-games" element={<LiveUsers />} />
             <Route path="/admin/customization" element={<Customization />} />
             <Route path="/admin/integrations" element={<Integrations />} />
+            <Route path="/admin/reports" element={<Reports />} />
+            <Route path="/admin/transactions" element={<Transactions />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
