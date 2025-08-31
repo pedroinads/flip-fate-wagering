@@ -5,6 +5,7 @@ import { LogOut } from 'lucide-react';
 import { CoinFlip } from '@/components/CoinFlip';
 import { WalletPanel } from '@/components/WalletPanel';
 import { BetsHistory } from '@/components/BetsHistory';
+import { WithdrawNotifications } from '@/components/WithdrawNotifications';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -77,6 +78,7 @@ export default function Game() {
 
   return (
     <div className="min-h-screen bg-gradient-casino">
+      <WithdrawNotifications />
       {/* Header */}
       <header className="border-b border-casino-gold/20 bg-casino-surface/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

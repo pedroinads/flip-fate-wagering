@@ -107,7 +107,6 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         <div className="hidden sm:flex items-center">
           <div className="text-right text-casino-gold">
             <div className="text-3xl font-bold">{currentLevel.multiplier}x</div>
-            <div className="text-sm opacity-80">{currentLevel.chance}% chance</div>
           </div>
         </div>
         
@@ -138,7 +137,6 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         <div className="hidden sm:flex items-center">
           <div className="text-left text-casino-gold">
             <div className="text-3xl font-bold">{currentLevel.multiplier}x</div>
-            <div className="text-sm opacity-80">{currentLevel.chance}% chance</div>
           </div>
         </div>
       </div>
@@ -146,7 +144,6 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
       {/* Mobile Multiplier Display */}
       <div className="sm:hidden text-center">
         <div className="text-2xl font-bold text-casino-gold">{currentLevel.multiplier}x</div>
-        <div className="text-sm text-casino-gold opacity-80">{currentLevel.chance}% chance de vitória</div>
       </div>
 
       {/* Bet Level Selection */}
@@ -166,7 +163,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               }`}
             >
               <div className="font-bold">{level.name}</div>
-              <div className="text-xs opacity-80">{level.multiplier}x • {level.chance}%</div>
+              <div className="text-xs opacity-80">{level.multiplier}x</div>
             </Button>
           ))}
         </div>
@@ -219,7 +216,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
       {/* Game Info */}
       <Card className="p-4 bg-casino-surface border-casino-gold/20">
         <div className="text-center text-sm text-muted-foreground space-y-1">
-          <p>Nível {currentLevel.name}: <span className="text-casino-gold font-semibold">{currentLevel.multiplier}x</span> com <span className="text-casino-gold font-semibold">{currentLevel.chance}%</span> de chance</p>
+          <p>Nível {currentLevel.name}: <span className="text-casino-gold font-semibold">{currentLevel.multiplier}x</span></p>
           <p>Saldo atual: <span className="text-casino-gold font-semibold">R$ {balance.toFixed(2)}</span></p>
         </div>
       </Card>
