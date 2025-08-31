@@ -27,9 +27,9 @@ serve(async (req) => {
       throw new Error("Unauthorized");
     }
 
-    const { choice, amount } = await req.json();
+    const { choice, amount, level } = await req.json();
 
-    if (!choice || !amount || amount <= 0) {
+    if (!choice || !amount || amount <= 0 || !level || level < 1 || level > 3) {
       throw new Error("Invalid bet parameters");
     }
 
@@ -55,14 +55,26 @@ serve(async (req) => {
       throw new Error("Insufficient balance");
     }
 
+    // Define level settings
+    const levelSettings = {
+      1: { multiplier: 1.9, winChance: 50 },
+      2: { multiplier: 4.9, winChance: 30 },
+      3: { multiplier: 9.9, winChance: 10 }
+    };
+    
+    const currentLevel = levelSettings[level as keyof typeof levelSettings];
+    
     // Generate random result (provably fair)
     const seed = crypto.randomUUID();
     const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(seed + Date.now()));
     const randomValue = new Uint8Array(hash)[0];
     const result = randomValue % 2 === 0 ? 'cara' : 'coroa';
     
-    const won = choice === result;
-    const payout = won ? amount * 1.9 : 0; // 1.9x payout (10% house edge)
+    // Check if player wins based on level win chance
+    const winRandom = (randomValue / 255) * 100;
+    const playerWins = choice === result && winRandom <= currentLevel.winChance;
+    
+    const payout = playerWins ? amount * currentLevel.multiplier : 0;
 
     // Start transaction
     const { error: betError } = await supabaseService
@@ -72,7 +84,7 @@ serve(async (req) => {
         amount,
         choice,
         result,
-        won,
+        won: playerWins,
         payout,
         seed,
       });
@@ -82,7 +94,7 @@ serve(async (req) => {
     }
 
     // Update wallet balance
-    const newBalance = won ? wallet.balance + payout - amount : wallet.balance - amount;
+    const newBalance = playerWins ? wallet.balance + payout - amount : wallet.balance - amount;
     
     const { error: updateError } = await supabaseService
       .from('wallets')
@@ -97,7 +109,7 @@ serve(async (req) => {
       JSON.stringify({
         success: true,
         result,
-        won,
+        won: playerWins,
         payout,
         newBalance,
       }),

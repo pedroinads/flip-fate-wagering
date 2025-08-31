@@ -40,14 +40,14 @@ export default function Game() {
     }
   };
 
-  const handleBet = async (choice: 'cara' | 'coroa', amount: number) => {
+  const handleBet = async (choice: 'cara' | 'coroa', amount: number, level: number) => {
     if (!user) return { won: false, result: 'cara' as const, payout: 0 };
 
     setLoading(true);
     
     try {
       const { data, error } = await supabase.functions.invoke('place-bet', {
-        body: { choice, amount }
+        body: { choice, amount, level }
       });
 
       if (error) throw error;
