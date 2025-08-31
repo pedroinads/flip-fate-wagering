@@ -43,10 +43,10 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const numericAmount = parseFloat(betAmount) || 0;
 
   const handleBet = async (choice: 'cara' | 'coroa') => {
-    if (numericAmount <= 0) {
+    if (numericAmount < 1.5) {
       toast({
         title: "Valor inválido",
-        description: "Digite um valor de aposta válido.",
+        description: "O valor mínimo para aposta é R$ 1,50.",
         variant: "destructive",
       });
       return;
@@ -177,12 +177,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         <div className="space-y-2">
           <Input
             type="number"
-            placeholder="Digite o valor (R$)"
+            placeholder="Mín. R$ 1,50"
             value={betAmount}
             onChange={(e) => setBetAmount(e.target.value)}
             disabled={disabled || isFlipping}
             className="text-center text-lg font-semibold bg-casino-surface border-casino-gold/20 text-casino-gold"
-            min="0.01"
+            min="1.5"
             step="0.01"
           />
           <div className="text-center text-sm text-muted-foreground">
@@ -198,7 +198,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         <Button
           size="lg"
           onClick={() => handleBet('cara')}
-          disabled={disabled || isFlipping || numericAmount > balance || numericAmount <= 0}
+          disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
           className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-casino-gold text-casino-bg hover:bg-casino-gold-muted transition-all duration-300 hover:shadow-casino-gold/30 hover:shadow-lg active:scale-95"
         >
           CARA
@@ -206,7 +206,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         <Button
           size="lg"
           onClick={() => handleBet('coroa')}
-          disabled={disabled || isFlipping || numericAmount > balance || numericAmount <= 0}
+          disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
           className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-casino-gold text-casino-bg hover:bg-casino-gold-muted transition-all duration-300 hover:shadow-casino-gold/30 hover:shadow-lg active:scale-95"
         >
           COROA

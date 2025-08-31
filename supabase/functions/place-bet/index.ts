@@ -29,8 +29,8 @@ serve(async (req) => {
 
     const { choice, amount, level } = await req.json();
 
-    if (!choice || !amount || amount <= 0 || !level || level < 1 || level > 3) {
-      throw new Error("Invalid bet parameters");
+    if (!choice || !amount || amount < 1.5 || !level || level < 1 || level > 3) {
+      throw new Error("Valor mínimo para aposta é R$ 1,50");
     }
 
     // Create service client for database operations

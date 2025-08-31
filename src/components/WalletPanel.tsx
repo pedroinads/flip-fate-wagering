@@ -94,10 +94,20 @@ export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
 
   const handleDeposit = async () => {
     const amount = parseFloat(depositAmount);
-    if (!amount || amount <= 0) {
+    
+    if (amount < 10) {
       toast({
         title: "Valor inválido",
-        description: "Digite um valor válido para depósito",
+        description: "O valor mínimo para depósito é R$ 10,00.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!pixKey.trim()) {
+      toast({
+        title: "PIX obrigatório",
+        description: "Digite sua chave PIX para o depósito.",
         variant: "destructive",
       });
       return;
@@ -283,11 +293,11 @@ export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
                 <Input
                   id="deposit-amount"
                   type="number"
-                  min="1"
+                  min="10"
                   step="0.01"
                   value={depositAmount}
                   onChange={(e) => setDepositAmount(e.target.value)}
-                  placeholder="R$ 0,00"
+                  placeholder="Mín. R$ 10,00"
                   className="bg-casino-surface border-casino-gold/20"
                 />
               </div>
