@@ -132,7 +132,6 @@ export function AuthForm() {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    required
                     placeholder="(11) 99999-9999"
                     className="bg-casino-surface border-casino-gold/20"
                   />
