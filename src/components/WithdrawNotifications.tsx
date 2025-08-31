@@ -93,16 +93,16 @@ export function WithdrawNotifications() {
   if (notifications.length === 0) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2">
+    <div className="fixed bottom-4 left-4 z-40 space-y-2 max-w-xs">
       {notifications.map((notification) => (
         <Card
           key={notification.id}
-          className="p-3 bg-gradient-to-r from-green-500 to-green-600 border-green-400 shadow-lg animate-slide-in-right max-w-xs"
+          className="p-3 bg-gradient-to-r from-green-500 to-green-600 border-green-400 shadow-lg animate-slide-in-left"
         >
           <div className="flex items-center space-x-2">
-            <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+            <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <div className="text-white font-semibold text-sm truncate">
+              <div className="text-white font-semibold text-xs truncate">
                 {notification.name}
               </div>
               <div className="text-green-100 text-xs">
@@ -111,7 +111,7 @@ export function WithdrawNotifications() {
               <div className="flex items-center space-x-1 mt-1">
                 <Badge 
                   variant="secondary" 
-                  className="text-xs bg-white/20 text-white border-white/30"
+                  className="text-xs bg-white/20 text-white border-white/30 px-1 py-0"
                 >
                   {notification.side.toUpperCase()}
                 </Badge>
