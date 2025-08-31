@@ -12,6 +12,7 @@ export function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
@@ -37,7 +38,7 @@ export function AuthForm() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signUp(email, password, fullName);
+    const { error } = await signUp(email, password, fullName, phone);
     
     if (error) {
       toast({
@@ -121,6 +122,18 @@ export function AuthForm() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
+                    className="bg-casino-surface border-casino-gold/20"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Telefone</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    placeholder="(11) 99999-9999"
                     className="bg-casino-surface border-casino-gold/20"
                   />
                 </div>
