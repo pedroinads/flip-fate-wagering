@@ -5,7 +5,7 @@ import { LogOut } from 'lucide-react';
 import { CoinFlip } from '@/components/CoinFlip';
 import { WalletPanel } from '@/components/WalletPanel';
 import { BetsHistory } from '@/components/BetsHistory';
-import { WithdrawNotifications } from '@/components/WithdrawNotifications';
+import { PlayersHistory } from '@/components/WithdrawNotifications';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -78,7 +78,6 @@ export default function Game() {
 
   return (
     <div className="min-h-screen bg-gradient-casino">
-      <WithdrawNotifications />
       {/* Header */}
       <header className="border-b border-casino-gold/20 bg-casino-surface/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,20 +174,22 @@ export default function Game() {
             </Card>
 
             {/* Game Statistics */}
+            <PlayersHistory />
+
             <Card className="p-4 bg-casino-surface border-casino-gold/20">
               <h4 className="text-sm font-semibold text-casino-gold mb-2">Estatísticas do Jogo</h4>
               <div className="space-y-2 text-xs text-muted-foreground">
                 <div className="flex justify-between">
-                  <span>Chance de vitória:</span>
-                  <span className="font-semibold">50%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Payout:</span>
+                  <span>Payout Nível 1:</span>
                   <span className="font-semibold">1.9x</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Taxa da casa:</span>
-                  <span className="font-semibold">5%</span>
+                  <span>Payout Nível 2:</span>
+                  <span className="font-semibold">4.9x</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Payout Nível 3:</span>
+                  <span className="font-semibold">9.9x</span>
                 </div>
               </div>
             </Card>
