@@ -10,6 +10,11 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/UserManagement";
 import GameControl from "./pages/admin/GameControl";
+import DemoAccounts from "./pages/admin/DemoAccounts";
+import WithdrawalApprovals from "./pages/admin/WithdrawalApprovals";
+import LiveUsers from "./pages/admin/LiveUsers";
+import Customization from "./pages/admin/Customization";
+import Integrations from "./pages/admin/Integrations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +46,11 @@ const App = () => (
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/users" element={<UserManagement />} />
             <Route path="/admin/game-control" element={<GameControl />} />
+            <Route path="/admin/demo-accounts" element={<DemoAccounts />} />
+            <Route path="/admin/approvals" element={<WithdrawalApprovals />} />
+            <Route path="/admin/live-games" element={<LiveUsers />} />
+            <Route path="/admin/customization" element={<Customization />} />
+            <Route path="/admin/integrations" element={<Integrations />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
