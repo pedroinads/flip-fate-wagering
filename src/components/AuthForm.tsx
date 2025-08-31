@@ -49,8 +49,9 @@ export function AuthForm() {
     } else {
       toast({
         title: "Cadastro realizado!",
-        description: "Bem-vindo! Você já pode começar a apostar.",
+        description: "Bem-vindo! Faça seu primeiro depósito para começar a apostar.",
       });
+      // User will be automatically redirected to Game.tsx where they can make a deposit
     }
     
     setLoading(false);

@@ -14,6 +14,7 @@ export default function Game() {
   const { user, signOut } = useAuth();
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showDepositDialog, setShowDepositDialog] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -37,7 +38,13 @@ export default function Game() {
     }
 
     if (data) {
-      setBalance(Number(data.balance));
+      const newBalance = Number(data.balance);
+      setBalance(newBalance);
+      
+      // Se é um novo usuário (saldo zero), mostrar dialog de depósito
+      if (newBalance === 0) {
+        setTimeout(() => setShowDepositDialog(true), 1000);
+      }
     }
   };
 
@@ -100,7 +107,12 @@ export default function Game() {
               </Card>
               
               <div className="hidden sm:flex space-x-2">
-                <WalletPanel userId={user.id} onBalanceUpdate={setBalance} />
+                <WalletPanel 
+                  userId={user.id} 
+                  onBalanceUpdate={setBalance}
+                  openDeposit={showDepositDialog}
+                  onDepositClose={() => setShowDepositDialog(false)}
+                />
                 <BetsHistory userId={user.id} />
               </div>
               
@@ -118,7 +130,12 @@ export default function Game() {
           
           {/* Mobile Actions */}
           <div className="flex justify-center space-x-4 py-2 sm:hidden border-t border-casino-gold/20">
-            <WalletPanel userId={user.id} onBalanceUpdate={setBalance} />
+            <WalletPanel 
+              userId={user.id} 
+              onBalanceUpdate={setBalance}
+              openDeposit={showDepositDialog}
+              onDepositClose={() => setShowDepositDialog(false)}
+            />
             <BetsHistory userId={user.id} />
           </div>
         </div>

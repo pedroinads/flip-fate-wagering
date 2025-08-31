@@ -28,11 +28,14 @@ interface Transaction {
 interface WalletPanelProps {
   userId: string;
   onBalanceUpdate: (balance: number) => void;
+  openDeposit?: boolean;
+  onDepositClose?: () => void;
 }
 
 const depositAmounts = [10, 30, 50, 100, 300, 500];
 
-export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
+export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDepositClose }: WalletPanelProps) {
+  const [open, setOpen] = useState(openDeposit);
   const [walletData, setWalletData] = useState<WalletData>({ balance: 0, totalDeposited: 0, totalWithdrawn: 0 });
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [depositAmount, setDepositAmount] = useState('');
@@ -45,6 +48,19 @@ export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
     fetchWalletData();
     fetchTransactions();
   }, [userId]);
+
+  useEffect(() => {
+    if (openDeposit) {
+      setOpen(true);
+    }
+  }, [openDeposit]);
+
+  const handleClose = () => {
+    setOpen(false);
+    if (onDepositClose) {
+      onDepositClose();
+    }
+  };
 
   const fetchWalletData = async () => {
     const { data, error } = await supabase
@@ -210,7 +226,12 @@ export function WalletPanel({ userId, onBalanceUpdate }: WalletPanelProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={(newOpen) => {
+      setOpen(newOpen);
+      if (!newOpen && onDepositClose) {
+        onDepositClose();
+      }
+    }}>
       <DialogTrigger asChild>
         <Button variant="outline" className="border-casino-gold/20 hover:bg-casino-gold/10">
           <Wallet className="w-4 h-4 mr-2" />
