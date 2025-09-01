@@ -1,4 +1,4 @@
-import logoImg from '/lovable-uploads/3bf83b0f-5ab0-44c7-a4ee-8b44cfeb3c9a.png';
+import logoImg from '/lovable-uploads/1ed01d0e-1e14-464a-9350-e15ffbfde223.png';
 
 interface LogoProps {
   className?: string;
