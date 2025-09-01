@@ -71,7 +71,7 @@ export function AuthForm() {
         <CardHeader className="text-center flex flex-col items-center">
           <Logo size="lg" className="mb-2" />
           <CardTitle className="text-2xl sm:text-3xl text-brand-gold">Cara ou Coroa</CardTitle>
-          <CardDescription className="text-sm sm:text-base text-foreground">Entre ou cadastre-se para começar a apostar</CardDescription>
+          <CardDescription className="text-sm sm:text-base text-foreground">Entre ou cadastre-se para começar a jogar!</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
