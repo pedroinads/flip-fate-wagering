@@ -30,14 +30,14 @@ const menuItems = [
 
 export function AdminSidebar() {
   return (
-    <Card className="w-64 min-h-screen bg-gradient-card border-casino-gold/20 rounded-none">
-      <div className="p-6">
+    <Card className="w-64 lg:w-64 min-h-screen bg-gradient-card border-brand-gold/20 rounded-none hidden lg:block">
+      <div className="p-4 sm:p-6">
         <div className="flex items-center space-x-2 mb-8">
-          <div className="w-8 h-8 bg-casino-gold rounded-lg flex items-center justify-center">
-            <span className="text-casino-bg font-bold text-sm">A</span>
+          <div className="w-8 h-8 bg-brand-gold rounded-lg flex items-center justify-center">
+            <span className="text-brand-bg font-bold text-sm">A</span>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-casino-gold">Admin Panel</h2>
+            <h2 className="text-lg font-bold text-brand-gold">Admin Panel</h2>
             <p className="text-xs text-muted-foreground">Painel de Controle</p>
           </div>
         </div>
@@ -50,8 +50,8 @@ export function AdminSidebar() {
               className={({ isActive }) =>
                 `flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                   isActive
-                    ? 'bg-casino-gold text-casino-bg'
-                    : 'text-muted-foreground hover:text-casino-gold hover:bg-casino-surface/50'
+                    ? 'bg-brand-gold text-brand-bg'
+                    : 'text-muted-foreground hover:text-brand-gold hover:bg-brand-surface/50'
                 }`
               }
             >

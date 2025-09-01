@@ -14,8 +14,8 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-casino flex items-center justify-center">
-        <div className="text-casino-gold">Verificando permissões...</div>
+      <div className="min-h-screen bg-gradient-brand flex items-center justify-center">
+        <div className="text-brand-gold">Verificando permissões...</div>
       </div>
     );
   }
@@ -25,12 +25,12 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-casino">
-      <div className="flex">
+    <div className="min-h-screen bg-gradient-brand">
+      <div className="flex flex-col lg:flex-row">
         <AdminSidebar />
-        <div className="flex-1">
+        <div className="flex-1 w-full lg:w-auto">
           <AdminHeader />
-          <main className="p-6">
+          <main className="p-4 sm:p-6">
             {children}
           </main>
         </div>

@@ -155,21 +155,21 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="space-y-6">
         {/* Date Filter */}
-        <Card className="p-4 bg-gradient-card border-casino-gold/20">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-casino-gold">Dashboard</h2>
-            <div className="flex items-center space-x-2">
+        <Card className="p-4 bg-gradient-card border-brand-gold/20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h2 className="text-lg font-semibold text-brand-gold">Dashboard</h2>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
               <Calendar className="w-4 h-4 text-muted-foreground" />
               <Input
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-auto bg-casino-surface border-casino-gold/20"
+                className="w-full sm:w-auto bg-brand-surface border-brand-gold/20 text-foreground"
               />
               <Button
                 onClick={fetchDashboardData}
                 size="sm"
-                className="bg-casino-gold text-casino-bg hover:bg-casino-gold-muted"
+                className="w-full sm:w-auto bg-brand-gold text-brand-bg hover:bg-brand-gold-muted"
               >
                 Atualizar
               </Button>
@@ -178,17 +178,17 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {statsCards.map((stat, index) => (
-            <Card key={index} className="p-6 bg-gradient-card border-casino-gold/20">
+            <Card key={index} className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
               <div className="flex items-center justify-between">
-                <div>
+                <div className="flex-1">
                   <p className="text-sm text-muted-foreground mb-1">{stat.title}</p>
-                  <p className="text-2xl font-bold text-casino-gold">
+                  <p className="text-xl sm:text-2xl font-bold text-brand-gold break-words">
                     {loading ? '...' : stat.value}
                   </p>
                 </div>
-                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                <div className={`p-3 rounded-lg ${stat.bgColor} flex-shrink-0 ml-4`}>
                   <stat.icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
               </div>
@@ -197,44 +197,44 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="p-6 bg-gradient-card border-casino-gold/20">
-            <h3 className="text-lg font-semibold text-casino-gold mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+            <h3 className="text-lg font-semibold text-brand-gold mb-4">
               Atividade Recente
             </h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-casino-surface/50 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-casino-gold">Novo usuário cadastrado</p>
+              <div className="flex items-center justify-between p-3 bg-brand-surface/50 rounded-lg">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">Novo usuário cadastrado</p>
                   <p className="text-xs text-muted-foreground">Há 5 minutos</p>
                 </div>
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-casino-surface/50 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-casino-gold">Depósito realizado</p>
+              <div className="flex items-center justify-between p-3 bg-brand-surface/50 rounded-lg">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">Depósito realizado</p>
                   <p className="text-xs text-muted-foreground">Há 12 minutos</p>
                 </div>
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-casino-surface/50 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-casino-gold">Saque aprovado</p>
+              <div className="flex items-center justify-between p-3 bg-brand-surface/50 rounded-lg">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">Saque aprovado</p>
                   <p className="text-xs text-muted-foreground">Há 25 minutos</p>
                 </div>
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
               </div>
             </div>
           </Card>
 
-          <Card className="p-6 bg-gradient-card border-casino-gold/20">
-            <h3 className="text-lg font-semibold text-casino-gold mb-4">
+          <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+            <h3 className="text-lg font-semibold text-brand-gold mb-4">
               Resumo do Sistema
             </h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Taxa de Conversão</span>
-                <span className="text-sm font-medium text-casino-gold">23.5%</span>
+                <span className="text-sm font-medium text-brand-gold">23.5%</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Margem de Lucro</span>

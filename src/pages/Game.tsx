@@ -91,9 +91,10 @@ export default function Game() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-1 flex items-center space-x-3">
-              <Logo />
+              <Logo size="sm" className="sm:hidden" />
+              <Logo size="md" className="hidden sm:block" />
               <div>
-                <h1 className="text-lg sm:text-xl font-bold text-brand-gold">Cara ou Coroa</h1>
+                <h1 className="text-sm sm:text-lg md:text-xl font-bold text-brand-gold">Cara ou Coroa</h1>
                 <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
                   Bem-vindo, {user.email?.split('@')[0]}
                 </p>
@@ -103,7 +104,7 @@ export default function Game() {
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Card className="px-2 sm:px-4 py-2 bg-brand-surface border-brand-gold/20 shadow-md">
                 <div className="text-center">
-                  <div className="text-sm sm:text-lg font-bold text-brand-gold">
+                  <div className="text-xs sm:text-lg font-bold text-brand-gold">
                     R$ {balance.toFixed(2)}
                   </div>
                   <div className="text-xs text-muted-foreground hidden sm:block">Saldo</div>
@@ -124,7 +125,7 @@ export default function Game() {
                 variant="outline"
                 size="sm"
                 onClick={handleSignOut}
-                className="border-brand-gold/20 hover:bg-brand-gold/10"
+                className="border-brand-gold/20 hover:bg-brand-gold/10 text-foreground"
               >
                 <LogOut className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Sair</span>
@@ -147,10 +148,10 @@ export default function Game() {
 
       {/* Main Game Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Game Section */}
-          <div className="lg:col-span-2">
-            <Card className="p-4 sm:p-8 bg-gradient-card border-brand-gold/20 shadow-brand">
+          <div className="xl:col-span-2">
+            <Card className="p-4 sm:p-6 lg:p-8 bg-gradient-card border-brand-gold/20 shadow-brand">
               <CoinFlip 
                 onBet={handleBet}
                 balance={balance}
@@ -162,22 +163,22 @@ export default function Game() {
           {/* Sidebar */}
           <div className="space-y-4 sm:space-y-6">
             {/* Game Info */}
-            <Card className="p-6 bg-gradient-card border-brand-gold/20">
+            <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
               <h3 className="text-lg font-semibold text-brand-gold mb-4">
                 Como Jogar
               </h3>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <div className="flex items-start space-x-2">
                   <div className="w-2 h-2 rounded-full bg-brand-gold mt-2 flex-shrink-0" />
-                  <p>Escolha entre <strong>Cara</strong> ou <strong>Coroa</strong></p>
+                  <p>Escolha entre <strong className="text-foreground">Cara</strong> ou <strong className="text-foreground">Coroa</strong></p>
                 </div>
                 <div className="flex items-start space-x-2">
                   <div className="w-2 h-2 rounded-full bg-brand-gold mt-2 flex-shrink-0" />
-                  <p>Selecione o valor da aposta (R$1 a R$10)</p>
+                  <p>Selecione o valor da aposta (mín. R$1,50)</p>
                 </div>
                 <div className="flex items-start space-x-2">
                   <div className="w-2 h-2 rounded-full bg-brand-gold mt-2 flex-shrink-0" />
-                  <p>Se acertar, ganhe <strong>1.9x</strong> o valor apostado</p>
+                  <p>Escolha o nível de dificuldade para maior multiplicador</p>
                 </div>
                 <div className="flex items-start space-x-2">
                   <div className="w-2 h-2 rounded-full bg-brand-gold mt-2 flex-shrink-0" />
@@ -202,15 +203,15 @@ export default function Game() {
               <div className="space-y-2 text-xs text-muted-foreground">
                 <div className="flex justify-between">
                   <span>Payout Nível 1:</span>
-                  <span className="font-semibold">1.9x</span>
+                  <span className="font-semibold text-brand-gold">1.9x</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Payout Nível 2:</span>
-                  <span className="font-semibold">4.9x</span>
+                  <span className="font-semibold text-brand-gold">4.9x</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Payout Nível 3:</span>
-                  <span className="font-semibold">9.9x</span>
+                  <span className="font-semibold text-brand-gold">9.9x</span>
                 </div>
               </div>
             </Card>
