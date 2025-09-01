@@ -67,11 +67,11 @@ export function AuthForm() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <Card className="w-full max-w-md bg-gradient-card/95 backdrop-blur-sm border-brand-gold/20 shadow-brand">
+      <Card className="w-full max-w-md bg-brand-bg border-brand-gold/20 shadow-brand">
         <CardHeader className="text-center flex flex-col items-center">
           <Logo size="lg" className="mb-2" />
           <CardTitle className="text-2xl sm:text-3xl text-brand-gold">Cara ou Coroa</CardTitle>
-          <CardDescription className="text-sm sm:text-base">Entre ou cadastre-se para começar a apostar</CardDescription>
+          <CardDescription className="text-sm sm:text-base text-foreground">Entre ou cadastre-se para começar a apostar</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
@@ -83,25 +83,25 @@ export function AuthForm() {
             <TabsContent value="signin" className="space-y-4">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-foreground">Email</Label>
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">Senha</Label>
+                  <Label htmlFor="password" className="text-foreground">Senha</Label>
                   <Input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <Button 
@@ -117,40 +117,40 @@ export function AuthForm() {
             <TabsContent value="signup" className="space-y-4">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Nome Completo</Label>
+                  <Label htmlFor="fullName" className="text-foreground">Nome Completo</Label>
                   <Input
                     id="fullName"
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Telefone</Label>
+                  <Label htmlFor="phone" className="text-foreground">Telefone</Label>
                   <Input
                     id="phone"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(11) 99999-9999"
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email-signup">Email</Label>
+                  <Label htmlFor="email-signup" className="text-foreground">Email</Label>
                   <Input
                     id="email-signup"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password-signup">Senha</Label>
+                  <Label htmlFor="password-signup" className="text-foreground">Senha</Label>
                   <Input
                     id="password-signup"
                     type="password"
@@ -158,7 +158,7 @@ export function AuthForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="bg-brand-surface border-brand-gold/20"
+                    className="bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <Button 
