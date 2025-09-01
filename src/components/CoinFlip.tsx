@@ -78,7 +78,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           toast({
             title: "Parabéns! Você ganhou!",
             description: `Você ganhou R$ ${result.payout.toFixed(2)}`,
-            className: "bg-casino-win",
+            className: "bg-brand-green",
           });
         } else {
           playSound('lose');
@@ -128,17 +128,17 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             <img
               src={coinCaraImg}
               alt="Girando moeda..."
-              className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border-8 border-casino-gold shadow-2xl animate-[coin-flip_2s_ease-out_infinite]"
+              className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border-8 border-brand-gold shadow-2xl animate-[coin-flip_2s_ease-out_infinite]"
               style={{
                 filter: 'drop-shadow(0 0 40px rgba(255, 215, 0, 0.8))',
                 animation: 'coin-flip 2s ease-out infinite, pulse-gold 1.5s ease-in-out infinite alternate'
               }}
             />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-casino-gold/20 to-transparent animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-gold/20 to-transparent animate-pulse"></div>
           </div>
           
           {/* Status text */}
-          <div className="absolute bottom-20 text-center text-casino-gold">
+          <div className="absolute bottom-20 text-center text-brand-gold">
             <div className="text-2xl font-bold animate-pulse">GIRANDO A MOEDA...</div>
             <div className="text-lg opacity-80 mt-2">Aguarde o resultado</div>
           </div>
@@ -149,7 +149,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         {/* Coin Display */}
         <div className="flex justify-center items-center space-x-4">
         <div className="hidden sm:flex items-center">
-          <div className="text-right text-casino-gold">
+          <div className="text-right text-brand-gold">
             <div className="text-3xl font-bold">{currentLevel.multiplier}x</div>
           </div>
         </div>
@@ -158,7 +158,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           <img
             src={isFlipping ? coinCaraImg : (lastResult === 'cara' ? coinCaraImg : coinCoroaImg)}
             alt={isFlipping ? "Girando..." : (lastResult || "Moeda")}
-            className={`w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-casino-gold shadow-casino transition-all duration-500 ${
+            className={`w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-brand-gold shadow-brand transition-all duration-500 ${
               isFlipping ? 'animate-coin-flip transform-gpu will-change-transform' : 'hover:scale-105'
             }`}
             style={{
@@ -170,7 +170,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           {lastWon !== null && (
             <Badge 
               className={`absolute -top-2 -right-2 ${
-                lastWon ? 'bg-casino-win' : 'bg-casino-lose'
+                lastWon ? 'bg-brand-green' : 'bg-destructive'
               }`}
             >
               {lastWon ? 'GANHOU!' : 'PERDEU'}
@@ -179,7 +179,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         </div>
 
         <div className="hidden sm:flex items-center">
-          <div className="text-left text-casino-gold">
+          <div className="text-left text-brand-gold">
             <div className="text-3xl font-bold">{currentLevel.multiplier}x</div>
           </div>
         </div>
@@ -187,12 +187,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
       {/* Mobile Multiplier Display */}
       <div className="sm:hidden text-center">
-        <div className="text-2xl font-bold text-casino-gold">{currentLevel.multiplier}x</div>
+        <div className="text-2xl font-bold text-brand-gold">{currentLevel.multiplier}x</div>
       </div>
 
       {/* Bet Level Selection */}
-      <Card className="p-4 sm:p-6 bg-gradient-card border-casino-gold/20">
-        <h3 className="text-lg font-semibold mb-4 text-center text-casino-gold">
+      <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+        <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
           Nível da Aposta
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
@@ -203,7 +203,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               onClick={() => setSelectedLevel(level.level)}
               disabled={disabled || isFlipping}
               className={`p-4 h-auto flex flex-col text-sm sm:text-base ${
-                selectedLevel === level.level ? "bg-casino-gold text-casino-bg hover:bg-casino-gold-muted" : ""
+                selectedLevel === level.level ? "bg-brand-gold text-brand-bg hover:bg-brand-gold-muted" : ""
               }`}
             >
               <div className="font-bold">{level.name}</div>
@@ -214,8 +214,8 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
       </Card>
 
       {/* Bet Amount Input */}
-      <Card className="p-4 sm:p-6 bg-gradient-card border-casino-gold/20">
-        <h3 className="text-lg font-semibold mb-4 text-center text-casino-gold">
+      <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+        <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
           Valor da Aposta
         </h3>
         <div className="space-y-2">
@@ -225,12 +225,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             value={betAmount}
             onChange={(e) => setBetAmount(e.target.value)}
             disabled={disabled || isFlipping}
-            className="text-center text-lg font-semibold bg-casino-surface border-casino-gold/20 text-casino-gold"
+            className="text-center text-lg font-semibold bg-brand-surface border-brand-gold/20 text-brand-gold"
             min="1.5"
             step="0.01"
           />
           <div className="text-center text-sm text-muted-foreground">
-            Ganho potencial: <span className="text-casino-gold font-semibold">
+            Ganho potencial: <span className="text-brand-gold font-semibold">
               R$ {(numericAmount * currentLevel.multiplier).toFixed(2)}
             </span>
           </div>
@@ -243,7 +243,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           size="lg"
           onClick={() => handleBet('cara')}
           disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
-          className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-casino-gold text-casino-bg hover:bg-casino-gold-muted transition-all duration-300 hover:shadow-casino-gold/30 hover:shadow-lg active:scale-95"
+          className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-brand-orange text-white hover:bg-brand-orange-muted transition-all duration-300 hover:shadow-orange/30 hover:shadow-lg active:scale-95"
         >
           CARA
         </Button>
@@ -251,17 +251,17 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           size="lg"
           onClick={() => handleBet('coroa')}
           disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
-          className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-casino-gold text-casino-bg hover:bg-casino-gold-muted transition-all duration-300 hover:shadow-casino-gold/30 hover:shadow-lg active:scale-95"
+          className="h-16 sm:h-20 text-lg sm:text-xl font-bold bg-brand-gold text-brand-bg hover:bg-brand-gold-muted transition-all duration-300 hover:shadow-gold/30 hover:shadow-lg active:scale-95"
         >
           COROA
         </Button>
       </div>
 
       {/* Game Info */}
-      <Card className="p-4 bg-casino-surface border-casino-gold/20">
+      <Card className="p-4 bg-brand-surface border-brand-gold/20">
         <div className="text-center text-sm text-muted-foreground space-y-1">
-          <p>Nível {currentLevel.name}: <span className="text-casino-gold font-semibold">{currentLevel.multiplier}x</span></p>
-          <p>Saldo atual: <span className="text-casino-gold font-semibold">R$ {balance.toFixed(2)}</span></p>
+          <p>Nível {currentLevel.name}: <span className="text-brand-gold font-semibold">{currentLevel.multiplier}x</span></p>
+          <p>Saldo atual: <span className="text-brand-gold font-semibold">R$ {balance.toFixed(2)}</span></p>
         </div>
       </Card>
       </div>

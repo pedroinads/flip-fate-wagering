@@ -56,14 +56,16 @@ export default {
 					DEFAULT: 'hsl(var(--success))',
 					foreground: 'hsl(var(--success-foreground))'
 				},
-				casino: {
-					bg: 'hsl(var(--casino-bg))',
-					surface: 'hsl(var(--casino-surface))',
-					elevated: 'hsl(var(--casino-surface-elevated))',
-					gold: 'hsl(var(--casino-gold))',
-					'gold-muted': 'hsl(var(--casino-gold-muted))',
-					win: 'hsl(var(--casino-win))',
-					lose: 'hsl(var(--casino-lose))'
+				brand: {
+					bg: 'hsl(var(--brand-bg))',
+					surface: 'hsl(var(--brand-surface))',
+					elevated: 'hsl(var(--brand-surface-elevated))',
+					gold: 'hsl(var(--brand-gold))',
+					'gold-muted': 'hsl(var(--brand-gold-muted))',
+					orange: 'hsl(var(--brand-orange))',
+					'orange-muted': 'hsl(var(--brand-orange-muted))',
+					green: 'hsl(var(--brand-green))',
+					teal: 'hsl(var(--brand-teal))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -152,8 +154,9 @@ export default {
 				'slide-in-left': 'slide-in-left 0.3s ease-out'
 			},
 			backgroundImage: {
-				'gradient-casino': 'var(--gradient-casino)',
+				'gradient-brand': 'var(--gradient-brand)',
 				'gradient-gold': 'var(--gradient-gold)',
+				'gradient-orange': 'var(--gradient-orange)',
 				'gradient-card': 'var(--gradient-card)'
 			}
 		}

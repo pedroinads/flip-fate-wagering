@@ -2,66 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Casino-style design system with dark elegance and golden accents */
+/* Branding baseado na logo Cara ou Coroa */
 
 @layer base {
   :root {
-    /* Dark casino theme */
-    --background: 220 13% 9%;
-    --foreground: 210 40% 98%;
+    /* Cores da logo como base */
+    --background: 195 45% 15%;        /* Azul escuro da logo */
+    --foreground: 0 0% 98%;           /* Branco para contraste */
 
-    --card: 224 12% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 195 35% 18%;              /* Azul escuro mais claro */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 224 12% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 195 35% 18%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Golden primary for premium feel */
-    --primary: 43 96% 56%;
-    --primary-foreground: 220 13% 9%;
+    /* Dourado da moeda como primary */
+    --primary: 45 95% 58%;            /* Dourado vibrante da logo */
+    --primary-foreground: 195 45% 15%;
 
-    /* Subtle secondary */
-    --secondary: 215 25% 20%;
-    --secondary-foreground: 210 40% 98%;
+    /* Laranja/vermelho do texto COROA */
+    --secondary: 25 85% 55%;          /* Laranja da logo */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 215 25% 16%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 195 25% 25%;
+    --muted-foreground: 195 15% 70%;
 
-    --accent: 43 96% 56%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 25 85% 55%;             /* Laranja como accent */
+    --accent-foreground: 0 0% 98%;
 
-    /* Success green for wins */
-    --success: 142 76% 36%;
-    --success-foreground: 210 40% 98%;
+    /* Verde das notas de dinheiro */
+    --success: 140 65% 45%;           /* Verde das notas */
+    --success-foreground: 0 0% 98%;
 
-    /* Danger red for losses */
+    /* Vermelho para perdas */
     --destructive: 0 75% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 215 25% 20%;
-    --input: 215 25% 16%;
-    --ring: 43 96% 56%;
+    --border: 195 25% 25%;
+    --input: 195 25% 20%;
+    --ring: 45 95% 58%;
 
     --radius: 0.75rem;
 
-    /* Casino-specific tokens */
-    --casino-bg: 220 13% 9%;
-    --casino-surface: 224 12% 12%;
-    --casino-surface-elevated: 215 25% 16%;
-    --casino-gold: 43 96% 56%;
-    --casino-gold-muted: 43 96% 45%;
-    --casino-win: 142 76% 36%;
-    --casino-lose: 0 75% 60%;
+    /* Tokens específicos do branding */
+    --brand-bg: 195 45% 15%;          /* Azul da logo */
+    --brand-surface: 195 35% 18%;     /* Azul mais claro */
+    --brand-surface-elevated: 195 25% 25%;
+    --brand-gold: 45 95% 58%;         /* Dourado da moeda */
+    --brand-gold-muted: 45 85% 50%;   /* Dourado mais suave */
+    --brand-orange: 25 85% 55%;       /* Laranja do texto */
+    --brand-orange-muted: 25 75% 45%; /* Laranja mais suave */
+    --brand-green: 140 65% 45%;       /* Verde das notas */
+    --brand-teal: 195 45% 15%;        /* Azul principal */
 
-    /* Gradients */
-    --gradient-casino: linear-gradient(135deg, hsl(220 13% 9%), hsl(224 12% 12%));
-    --gradient-gold: linear-gradient(135deg, hsl(43 96% 56%), hsl(45 93% 47%));
-    --gradient-card: linear-gradient(135deg, hsl(224 12% 12%), hsl(215 25% 16%));
+    /* Gradientes baseados na logo */
+    --gradient-brand: linear-gradient(135deg, hsl(195 45% 15%), hsl(195 35% 18%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 95% 58%), hsl(45 85% 50%));
+    --gradient-orange: linear-gradient(135deg, hsl(25 85% 55%), hsl(25 75% 45%));
+    --gradient-card: linear-gradient(135deg, hsl(195 35% 18%), hsl(195 25% 25%));
 
-    /* Shadows */
-    --shadow-casino: 0 10px 30px -5px hsl(220 13% 4% / 0.8);
-    --shadow-gold: 0 0 20px hsl(43 96% 56% / 0.3);
-    --shadow-elevated: 0 20px 40px -10px hsl(220 13% 4% / 0.9);
+    /* Sombras temáticas */
+    --shadow-brand: 0 10px 30px -5px hsl(195 45% 8% / 0.8);
+    --shadow-gold: 0 0 20px hsl(45 95% 58% / 0.4);
+    --shadow-orange: 0 0 15px hsl(25 85% 55% / 0.3);
+    --shadow-elevated: 0 20px 40px -10px hsl(195 45% 8% / 0.9);
 
     /* Animations */
     --transition-casino: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

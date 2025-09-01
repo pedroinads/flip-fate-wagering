@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/Logo';
 import casinoHeroBg from '@/assets/casino-hero-bg.jpg';
 
 export function AuthForm() {
@@ -59,7 +60,7 @@ export function AuthForm() {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center bg-gradient-casino p-4 relative"
+      className="min-h-screen flex items-center justify-center bg-gradient-brand p-4 relative"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${casinoHeroBg})`,
         backgroundSize: 'cover',
@@ -67,14 +68,15 @@ export function AuthForm() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <Card className="w-full max-w-md bg-gradient-card/95 backdrop-blur-sm border-casino-gold/20 shadow-casino">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl sm:text-3xl text-casino-gold">🪙 Cara ou Coroa</CardTitle>
+      <Card className="w-full max-w-md bg-gradient-card/95 backdrop-blur-sm border-brand-gold/20 shadow-brand">
+        <CardHeader className="text-center flex flex-col items-center">
+          <Logo size="lg" className="mb-2" />
+          <CardTitle className="text-2xl sm:text-3xl text-brand-gold">Cara ou Coroa</CardTitle>
           <CardDescription className="text-sm sm:text-base">Entre ou cadastre-se para começar a apostar</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-casino-surface">
+            <TabsList className="grid w-full grid-cols-2 bg-brand-surface">
               <TabsTrigger value="signin">Entrar</TabsTrigger>
               <TabsTrigger value="signup">Cadastrar</TabsTrigger>
             </TabsList>
@@ -89,7 +91,7 @@ export function AuthForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <div className="space-y-2">
@@ -100,12 +102,12 @@ export function AuthForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-casino-gold text-casino-bg hover:bg-casino-gold-muted"
+                  className="w-full bg-brand-gold text-brand-bg hover:bg-brand-gold-muted"
                   disabled={loading}
                 >
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -123,7 +125,7 @@ export function AuthForm() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <div className="space-y-2">
@@ -134,7 +136,7 @@ export function AuthForm() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(11) 99999-9999"
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <div className="space-y-2">
@@ -145,7 +147,7 @@ export function AuthForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <div className="space-y-2">
@@ -157,12 +159,12 @@ export function AuthForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="bg-casino-surface border-casino-gold/20"
+                    className="bg-brand-surface border-brand-gold/20"
                   />
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-casino-gold text-casino-bg hover:bg-casino-gold-muted"
+                  className="w-full bg-brand-gold text-brand-bg hover:bg-brand-gold-muted"
                   disabled={loading}
                 >
                   {loading ? 'Cadastrando...' : 'Cadastrar'}
