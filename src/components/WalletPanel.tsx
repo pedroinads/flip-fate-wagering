@@ -120,15 +120,6 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
       return;
     }
 
-    if (!pixKey.trim()) {
-      toast({
-        title: "PIX obrigatório",
-        description: "Digite sua chave PIX para o depósito.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setLoading(true);
     
     try {
@@ -233,35 +224,35 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
       }
     }}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-casino-gold/20 hover:bg-casino-gold/10">
+        <Button variant="outline" className="border-brand-gold/20 hover:bg-brand-gold/10 text-foreground">
           <Wallet className="w-4 h-4 mr-2" />
           Carteira
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-gradient-card border-casino-gold/20">
+      <DialogContent className="sm:max-w-[600px] bg-gradient-card border-brand-gold/20">
         <DialogHeader>
-          <DialogTitle className="text-casino-gold">Carteira Digital</DialogTitle>
+          <DialogTitle className="text-brand-gold">Carteira Digital</DialogTitle>
         </DialogHeader>
         
         {/* Balance Display */}
-        <Card className="bg-casino-surface border-casino-gold/20">
+        <Card className="bg-brand-surface border-brand-gold/20">
           <CardContent className="pt-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-casino-gold">
+              <div className="text-3xl font-bold text-brand-gold">
                 R$ {walletData.balance.toFixed(2)}
               </div>
               <p className="text-sm text-muted-foreground">Saldo disponível</p>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div className="text-center">
-                <div className="flex items-center justify-center text-casino-win">
+                <div className="flex items-center justify-center text-brand-green">
                   <TrendingUp className="w-4 h-4 mr-1" />
                   R$ {walletData.totalDeposited.toFixed(2)}
                 </div>
                 <p className="text-xs text-muted-foreground">Total depositado</p>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center text-casino-lose">
+                <div className="flex items-center justify-center text-destructive">
                   <TrendingDown className="w-4 h-4 mr-1" />
                   R$ {walletData.totalWithdrawn.toFixed(2)}
                 </div>
@@ -272,35 +263,35 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
         </Card>
 
         <Tabs defaultValue="deposit" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-casino-surface">
-            <TabsTrigger value="deposit">
+          <TabsList className="grid w-full grid-cols-3 bg-brand-surface">
+            <TabsTrigger value="deposit" className="text-foreground data-[state=active]:text-brand-bg">
               <Plus className="w-4 h-4 mr-1" />
               Depósito
             </TabsTrigger>
-            <TabsTrigger value="withdraw">
+            <TabsTrigger value="withdraw" className="text-foreground data-[state=active]:text-brand-bg">
               <Minus className="w-4 h-4 mr-1" />
               Saque
             </TabsTrigger>
-            <TabsTrigger value="history">Histórico</TabsTrigger>
+            <TabsTrigger value="history" className="text-foreground data-[state=active]:text-brand-bg">Histórico</TabsTrigger>
           </TabsList>
           
           <TabsContent value="deposit" className="space-y-4">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-casino-gold font-semibold">Valores Recomendados</Label>
+                <Label className="text-brand-gold font-semibold">Valores Recomendados</Label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {depositAmounts.map((amount) => (
                     <Button
                       key={amount}
                       variant="outline"
                       onClick={() => setDepositAmount(amount.toString())}
-                      className={`text-sm relative border-casino-gold/30 hover:border-casino-gold hover:bg-casino-gold/10 ${
-                        amount === 30 ? "border-2 border-casino-gold bg-casino-gold/20" : ""
+                      className={`text-sm relative border-brand-gold/30 hover:border-brand-gold hover:bg-brand-gold/10 text-foreground ${
+                        amount === 30 ? "border-2 border-brand-gold bg-brand-gold/20" : ""
                       }`}
                     >
                       R$ {amount}
                       {amount === 30 && (
-                        <span className="absolute -top-2 -right-2 bg-casino-gold text-casino-bg text-xs px-1.5 py-0.5 rounded-full font-bold">
+                        <span className="absolute -top-2 -right-2 bg-brand-gold text-brand-bg text-xs px-1.5 py-0.5 rounded-full font-bold">
                           POPULAR
                         </span>
                       )}
@@ -310,7 +301,7 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="deposit-amount">Ou digite um valor</Label>
+                <Label htmlFor="deposit-amount" className="text-foreground">Ou digite um valor</Label>
                 <Input
                   id="deposit-amount"
                   type="number"
@@ -319,16 +310,16 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
                   value={depositAmount}
                   onChange={(e) => setDepositAmount(e.target.value)}
                   placeholder="Mín. R$ 10,00"
-                  className="bg-casino-surface border-casino-gold/20"
+                  className="bg-brand-surface border-brand-gold/20 text-foreground"
                 />
               </div>
             </div>
             <Button 
               onClick={handleDeposit}
               disabled={loading}
-              className="w-full bg-casino-gold text-casino-bg hover:bg-casino-gold-muted"
+              className="w-full bg-brand-gold text-brand-bg hover:bg-brand-gold-muted"
             >
-              {loading ? 'Processando...' : 'Depositar via PIX'}
+              {loading ? 'Processando...' : 'Depositar Instantâneo'}
             </Button>
             <p className="text-xs text-muted-foreground text-center">
               * No MVP, os depósitos são simulados e creditados automaticamente
@@ -337,7 +328,7 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
           
           <TabsContent value="withdraw" className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="withdraw-amount">Valor do Saque (mín. R$ 20,00)</Label>
+              <Label htmlFor="withdraw-amount" className="text-foreground">Valor do Saque (mín. R$ 20,00)</Label>
               <Input
                 id="withdraw-amount"
                 type="number"
@@ -346,24 +337,24 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(e.target.value)}
                 placeholder="R$ 0,00"
-                className="bg-casino-surface border-casino-gold/20"
+                className="bg-brand-surface border-brand-gold/20 text-foreground"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="pix-key">Chave PIX</Label>
+              <Label htmlFor="pix-key" className="text-foreground">Chave PIX</Label>
               <Input
                 id="pix-key"
                 type="text"
                 value={pixKey}
                 onChange={(e) => setPixKey(e.target.value)}
                 placeholder="Digite sua chave PIX"
-                className="bg-casino-surface border-casino-gold/20"
+                className="bg-brand-surface border-brand-gold/20 text-foreground"
               />
             </div>
             <Button 
               onClick={handleWithdraw}
               disabled={loading}
-              className="w-full bg-casino-gold text-casino-bg hover:bg-casino-gold-muted"
+              className="w-full bg-brand-gold text-brand-bg hover:bg-brand-gold-muted"
             >
               {loading ? 'Processando...' : 'Solicitar Saque'}
             </Button>
@@ -377,16 +368,16 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
                 </p>
               ) : (
                 transactions.map((transaction) => (
-                  <Card key={transaction.id} className="p-3 bg-casino-surface border-casino-gold/20">
+                  <Card key={transaction.id} className="p-3 bg-brand-surface border-brand-gold/20">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         {transaction.type === 'deposit' ? (
-                          <Plus className="w-4 h-4 text-casino-win" />
+                          <Plus className="w-4 h-4 text-brand-green" />
                         ) : (
-                          <Minus className="w-4 h-4 text-casino-lose" />
+                          <Minus className="w-4 h-4 text-destructive" />
                         )}
                         <div>
-                          <div className="text-sm font-medium">
+                          <div className="text-sm font-medium text-foreground">
                             {transaction.type === 'deposit' ? 'Depósito' : 'Saque'}
                           </div>
                           <div className="text-xs text-muted-foreground">
@@ -396,7 +387,7 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
                       </div>
                       <div className="text-right">
                         <div className={`font-medium ${
-                          transaction.type === 'deposit' ? 'text-casino-win' : 'text-casino-lose'
+                          transaction.type === 'deposit' ? 'text-brand-green' : 'text-destructive'
                         }`}>
                           {transaction.type === 'deposit' ? '+' : '-'} R$ {transaction.amount.toFixed(2)}
                         </div>
