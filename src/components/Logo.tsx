@@ -16,7 +16,7 @@ export function Logo({ className = '', size = 'md' }: LogoProps) {
     <img 
       src={logoImg} 
       alt="Cara ou Coroa" 
-      className={`rounded-full ${sizeClasses[size]} ${className}`}
+      className={`${sizeClasses[size]} ${className}`}
     />
   );
 }
