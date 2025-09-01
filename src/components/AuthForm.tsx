@@ -64,7 +64,8 @@ export function AuthForm() {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/lovable-uploads/af35f3b6-92af-4ef2-b373-e455d0343648.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
       }}
     >
       <Card className="w-full max-w-md bg-brand-bg border-brand-gold/20 shadow-brand">
@@ -76,8 +77,8 @@ export function AuthForm() {
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-brand-surface">
-              <TabsTrigger value="signin">Entrar</TabsTrigger>
-              <TabsTrigger value="signup">Cadastrar</TabsTrigger>
+              <TabsTrigger value="signin" className="text-foreground data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">Entrar</TabsTrigger>
+              <TabsTrigger value="signup" className="text-foreground data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">Cadastrar</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin" className="space-y-4">

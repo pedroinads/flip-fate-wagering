@@ -92,45 +92,45 @@ export function BetsHistory({ userId }: BetsHistoryProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-casino-gold/20 hover:bg-casino-gold/10">
+        <Button variant="outline" className="border-brand-gold/20 hover:bg-brand-gold/10 text-foreground">
           <History className="w-4 h-4 mr-2" />
           Histórico
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px] bg-gradient-card border-casino-gold/20">
+      <DialogContent className="sm:max-w-[700px] bg-gradient-card border-brand-gold/20">
         <DialogHeader>
-          <DialogTitle className="text-casino-gold">Histórico de Apostas</DialogTitle>
+          <DialogTitle className="text-brand-gold">Histórico de Apostas</DialogTitle>
         </DialogHeader>
         
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="bg-casino-surface border-casino-gold/20">
+          <Card className="bg-brand-surface border-brand-gold/20">
             <CardContent className="p-4 text-center">
-              <Target className="w-8 h-8 mx-auto mb-2 text-casino-gold" />
-              <div className="text-lg font-bold">{stats.totalBets}</div>
+              <Target className="w-8 h-8 mx-auto mb-2 text-brand-gold" />
+              <div className="text-lg font-bold text-foreground">{stats.totalBets}</div>
               <div className="text-xs text-muted-foreground">Total de Apostas</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-casino-surface border-casino-gold/20">
+          <Card className="bg-brand-surface border-brand-gold/20">
             <CardContent className="p-4 text-center">
-              <TrendingUp className="w-8 h-8 mx-auto mb-2 text-casino-win" />
-              <div className="text-lg font-bold text-casino-win">{stats.totalWon}</div>
+              <TrendingUp className="w-8 h-8 mx-auto mb-2 text-brand-green" />
+              <div className="text-lg font-bold text-brand-green">{stats.totalWon}</div>
               <div className="text-xs text-muted-foreground">Vitórias</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-casino-surface border-casino-gold/20">
+          <Card className="bg-brand-surface border-brand-gold/20">
             <CardContent className="p-4 text-center">
-              <TrendingDown className="w-8 h-8 mx-auto mb-2 text-casino-lose" />
-              <div className="text-lg font-bold text-casino-lose">{stats.totalLost}</div>
+              <TrendingDown className="w-8 h-8 mx-auto mb-2 text-destructive" />
+              <div className="text-lg font-bold text-destructive">{stats.totalLost}</div>
               <div className="text-xs text-muted-foreground">Derrotas</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-casino-surface border-casino-gold/20">
+          <Card className="bg-brand-surface border-brand-gold/20">
             <CardContent className="p-4 text-center">
-              <div className="text-lg font-bold text-casino-gold">
+              <div className="text-lg font-bold text-brand-gold">
                 {stats.winRate.toFixed(1)}%
               </div>
               <div className="text-xs text-muted-foreground">Taxa de Vitória</div>
@@ -139,10 +139,10 @@ export function BetsHistory({ userId }: BetsHistoryProps) {
         </div>
 
         {/* Net Profit */}
-        <Card className="bg-casino-surface border-casino-gold/20">
+        <Card className="bg-brand-surface border-brand-gold/20">
           <CardContent className="p-4 text-center">
             <div className={`text-2xl font-bold ${
-              stats.netProfit >= 0 ? 'text-casino-win' : 'text-casino-lose'
+              stats.netProfit >= 0 ? 'text-brand-green' : 'text-destructive'
             }`}>
               {stats.netProfit >= 0 ? '+' : ''} R$ {stats.netProfit.toFixed(2)}
             </div>
@@ -152,26 +152,26 @@ export function BetsHistory({ userId }: BetsHistoryProps) {
 
         {/* Bets List */}
         <div className="space-y-2 max-h-96 overflow-y-auto">
-          <h3 className="font-semibold text-casino-gold mb-2">Apostas Recentes</h3>
+          <h3 className="font-semibold text-brand-gold mb-2">Apostas Recentes</h3>
           {bets.length === 0 ? (
             <p className="text-center text-muted-foreground py-8">
               Nenhuma aposta encontrada. Faça sua primeira aposta!
             </p>
           ) : (
             bets.map((bet) => (
-              <Card key={bet.id} className="p-3 bg-casino-surface border-casino-gold/20">
+              <Card key={bet.id} className="p-3 bg-brand-surface border-brand-gold/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Badge 
                       className={`${
-                        bet.won ? 'bg-casino-win' : 'bg-casino-lose'
+                        bet.won ? 'bg-brand-green' : 'bg-destructive'
                       } text-white`}
                     >
                       {bet.won ? 'GANHOU' : 'PERDEU'}
                     </Badge>
                     <div>
-                      <div className="text-sm font-medium">
-                        Apostou <span className="text-casino-gold">R$ {bet.amount.toFixed(2)}</span> em{' '}
+                      <div className="text-sm font-medium text-foreground">
+                        Apostou <span className="text-brand-gold">R$ {bet.amount.toFixed(2)}</span> em{' '}
                         <span className="uppercase font-bold">{bet.choice}</span>
                       </div>
                       <div className="text-xs text-muted-foreground">
@@ -182,7 +182,7 @@ export function BetsHistory({ userId }: BetsHistoryProps) {
                   </div>
                   <div className="text-right">
                     <div className={`font-bold ${
-                      bet.won ? 'text-casino-win' : 'text-casino-lose'
+                      bet.won ? 'text-brand-green' : 'text-destructive'
                     }`}>
                       {bet.won ? '+' : '-'} R$ {bet.won ? bet.payout.toFixed(2) : bet.amount.toFixed(2)}
                     </div>

@@ -264,15 +264,26 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
 
         <Tabs defaultValue="deposit" className="w-full">
           <TabsList className="grid w-full grid-cols-3 bg-brand-surface">
-            <TabsTrigger value="deposit" className="text-foreground data-[state=active]:text-brand-bg">
+            <TabsTrigger 
+              value="deposit" 
+              className="text-foreground data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg"
+            >
               <Plus className="w-4 h-4 mr-1" />
               Depósito
             </TabsTrigger>
-            <TabsTrigger value="withdraw" className="text-foreground data-[state=active]:text-brand-bg">
+            <TabsTrigger 
+              value="withdraw" 
+              className="text-foreground data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg"
+            >
               <Minus className="w-4 h-4 mr-1" />
               Saque
             </TabsTrigger>
-            <TabsTrigger value="history" className="text-foreground data-[state=active]:text-brand-bg">Histórico</TabsTrigger>
+            <TabsTrigger 
+              value="history" 
+              className="text-foreground data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg"
+            >
+              Histórico
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="deposit" className="space-y-4">
@@ -321,8 +332,8 @@ export function WalletPanel({ userId, onBalanceUpdate, openDeposit = false, onDe
             >
               {loading ? 'Processando...' : 'Depositar Instantâneo'}
             </Button>
-            <p className="text-xs text-muted-foreground text-center">
-              * No MVP, os depósitos são simulados e creditados automaticamente
+            <p className="text-xs text-center text-muted-foreground">
+              * Depósitos são creditados instantaneamente no sistema
             </p>
           </TabsContent>
           

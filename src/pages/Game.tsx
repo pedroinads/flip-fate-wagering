@@ -77,7 +77,16 @@ export default function Game() {
   };
 
   const handleSignOut = async () => {
-    await signOut();
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+      toast({
+        title: "Erro ao sair",
+        description: "Tente novamente",
+        variant: "destructive"
+      });
+    }
   };
 
   if (!user) {
