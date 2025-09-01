@@ -101,9 +101,53 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 px-4">
-      {/* Coin Display */}
-      <div className="flex justify-center items-center space-x-4">
+    <>
+      {/* Full Screen Coin Animation Overlay */}
+      {isFlipping && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center">
+          {/* Background floating coins */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(8)].map((_, i) => (
+              <img
+                key={i}
+                src={i % 2 === 0 ? coinCaraImg : coinCoroaImg}
+                alt="Background coin"
+                className="absolute w-16 h-16 rounded-full opacity-20 animate-[coin-flip_3s_ease-in-out_infinite]"
+                style={{
+                  left: `${20 + (i * 10)}%`,
+                  top: `${10 + (i * 8)}%`,
+                  animationDelay: `${i * 0.3}s`,
+                  transform: `rotate(${i * 45}deg)`,
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Main large coin */}
+          <div className="relative z-10">
+            <img
+              src={coinCaraImg}
+              alt="Girando moeda..."
+              className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border-8 border-casino-gold shadow-2xl animate-[coin-flip_2s_ease-out_infinite]"
+              style={{
+                filter: 'drop-shadow(0 0 40px rgba(255, 215, 0, 0.8))',
+                animation: 'coin-flip 2s ease-out infinite, pulse-gold 1.5s ease-in-out infinite alternate'
+              }}
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-casino-gold/20 to-transparent animate-pulse"></div>
+          </div>
+          
+          {/* Status text */}
+          <div className="absolute bottom-20 text-center text-casino-gold">
+            <div className="text-2xl font-bold animate-pulse">GIRANDO A MOEDA...</div>
+            <div className="text-lg opacity-80 mt-2">Aguarde o resultado</div>
+          </div>
+        </div>
+      )}
+
+      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 px-4">
+        {/* Coin Display */}
+        <div className="flex justify-center items-center space-x-4">
         <div className="hidden sm:flex items-center">
           <div className="text-right text-casino-gold">
             <div className="text-3xl font-bold">{currentLevel.multiplier}x</div>
@@ -220,6 +264,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           <p>Saldo atual: <span className="text-casino-gold font-semibold">R$ {balance.toFixed(2)}</span></p>
         </div>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }
