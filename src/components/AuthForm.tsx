@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Logo } from '@/components/Logo';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function AuthForm() {
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ export function AuthForm() {
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,11 +63,13 @@ export function AuthForm() {
     <div 
       className="min-h-screen flex items-center justify-center bg-gradient-brand p-4 relative"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/lovable-uploads/af35f3b6-92af-4ef2-b373-e455d0343648.png)`,
+        backgroundImage: isMobile 
+          ? `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/lovable-uploads/3bb0fec6-84cc-442c-8de0-27762300f29c.png)`
+          : `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/lovable-uploads/af35f3b6-92af-4ef2-b373-e455d0343648.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
+        backgroundAttachment: !isMobile ? 'fixed' : 'scroll'
       }}
     >
       <Card className="w-full max-w-md bg-brand-bg border-brand-gold/20 shadow-brand">
