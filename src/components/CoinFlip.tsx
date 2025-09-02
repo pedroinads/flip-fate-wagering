@@ -224,7 +224,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
               {isFlipping && (
                 <div className="text-brand-gold text-sm font-semibold animate-pulse">
-                  {turboMode ? '⚡ TURBO!' : '🎰 Girando...'}
+                  {turboMode ? '⚡ TURBO!' : '🪙 Girando...'}
                 </div>
               )}
             </div>
@@ -326,12 +326,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           >
             {isFlipping ? (
               <span className="flex items-center space-x-2">
-                <span className="animate-spin">🎰</span>
+                <span className="animate-spin">🪙</span>
                 <span>{turboMode ? 'TURBO!' : 'GIRANDO...'}</span>
               </span>
             ) : (
               <span className="flex items-center space-x-2">
-                <span>🎰</span>
+                <span>🪙</span>
                 <span>GIRAR</span>
                 {turboMode && <span>⚡</span>}
               </span>
