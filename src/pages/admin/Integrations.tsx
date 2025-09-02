@@ -100,6 +100,17 @@ export default function Integrations() {
           updated_at: new Date().toISOString()
         });
 
+      // Save Meta Pixel ID to localStorage for immediate use
+      if (config.webhook_config.meta_pixel_id) {
+        localStorage.setItem('meta_pixel_id', config.webhook_config.meta_pixel_id);
+        
+        // Reinitialize Meta Pixel with new ID
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('init', config.webhook_config.meta_pixel_id);
+          (window as any).fbq('track', 'PageView');
+        }
+      }
+
       toast({
         title: "Integrações salvas",
         description: "Todas as configurações de integração foram salvas com sucesso",

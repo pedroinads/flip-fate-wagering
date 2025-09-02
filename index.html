@@ -17,7 +17,29 @@
     <meta name="twitter:title" content="Cara ou Coroa - Apostas Online" />
     <meta name="twitter:description" content="Sistema seguro e justo para apostas em Cara ou Coroa" />
     <meta name="twitter:image" content="/lovable-uploads/1ed01d0e-1e14-464a-9350-e15ffbfde223.png" />
-  </head>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialize with a placeholder ID - will be configured in admin panel
+      const pixelId = localStorage.getItem('meta_pixel_id') || '000000000000000';
+      if (pixelId !== '000000000000000') {
+        fbq('init', pixelId);
+        fbq('track', 'PageView');
+      }
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=000000000000000&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 
   <body>
     <div id="root"></div>
