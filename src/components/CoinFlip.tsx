@@ -22,7 +22,7 @@ const betLevels = [
 ];
 
 export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
-  const [betAmount, setBetAmount] = useState('1');
+  const [betAmount, setBetAmount] = useState('1.50');
   const [selectedLevel, setSelectedLevel] = useState(1);
   const [selectedChoice, setSelectedChoice] = useState<'cara' | 'coroa'>('cara');
   const [isFlipping, setIsFlipping] = useState(false);
@@ -319,17 +319,65 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
             Valor da Aposta
           </h3>
-          <div className="space-y-2">
-            <Input
-              type="number"
-              placeholder="Mín. R$ 1,50"
-              value={betAmount}
-              onChange={(e) => setBetAmount(e.target.value)}
-              disabled={disabled || isFlipping}
-              className="text-center text-lg font-semibold bg-brand-surface border-brand-gold/20 text-foreground placeholder:text-muted-foreground"
-              min="1.5"
-              step="0.01"
-            />
+          <div className="space-y-3">
+            {/* Controles de Valor */}
+            <div className="flex items-center justify-center space-x-4">
+              <Button
+                onClick={() => {
+                  const newAmount = Math.max(1.50, numericAmount - 0.50);
+                  setBetAmount(newAmount.toFixed(2));
+                }}
+                disabled={disabled || isFlipping || numericAmount <= 1.50}
+                size="lg"
+                variant="outline"
+                className="w-12 h-12 rounded-full border-brand-gold/30 hover:border-brand-gold text-brand-gold hover:bg-brand-gold/10 text-xl font-bold"
+              >
+                −
+              </Button>
+              
+              <div className="text-center min-w-[120px]">
+                <div className="text-2xl font-bold text-brand-gold">
+                  R$ {numericAmount.toFixed(2)}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Mín. R$ 1,50
+                </div>
+              </div>
+              
+              <Button
+                onClick={() => {
+                  const newAmount = Math.min(balance, numericAmount + 0.50);
+                  setBetAmount(newAmount.toFixed(2));
+                }}
+                disabled={disabled || isFlipping || numericAmount >= balance}
+                size="lg"
+                variant="outline"
+                className="w-12 h-12 rounded-full border-brand-gold/30 hover:border-brand-gold text-brand-gold hover:bg-brand-gold/10 text-xl font-bold"
+              >
+                +
+              </Button>
+            </div>
+            
+            {/* Valores rápidos */}
+            <div className="grid grid-cols-4 gap-2">
+              {[1.50, 5.00, 10.00, 25.00].map((value) => (
+                <Button
+                  key={value}
+                  onClick={() => setBetAmount(value.toFixed(2))}
+                  disabled={disabled || isFlipping || value > balance}
+                  variant="outline"
+                  size="sm"
+                  className={`text-xs font-semibold ${
+                    numericAmount === value 
+                      ? "bg-brand-gold/20 border-brand-gold text-brand-gold" 
+                      : "border-brand-gold/30 hover:border-brand-gold text-foreground hover:bg-brand-gold/10"
+                  }`}
+                >
+                  R$ {value.toFixed(2)}
+                </Button>
+              ))}
+            </div>
+            
             <div className="text-center text-sm text-muted-foreground">
               Ganho potencial: <span className="text-brand-gold font-semibold">
                 R$ {(numericAmount * currentLevel.multiplier).toFixed(2)}
