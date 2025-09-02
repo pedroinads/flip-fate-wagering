@@ -24,6 +24,7 @@ const betLevels = [
 export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const [betAmount, setBetAmount] = useState('1');
   const [selectedLevel, setSelectedLevel] = useState(1);
+  const [selectedChoice, setSelectedChoice] = useState<'cara' | 'coroa'>('cara');
   const [isFlipping, setIsFlipping] = useState(false);
   const [lastResult, setLastResult] = useState<'cara' | 'coroa' | null>(null);
   const [lastWon, setLastWon] = useState<boolean | null>(null);
@@ -44,7 +45,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const currentLevel = betLevels.find(level => level.level === selectedLevel)!;
   const numericAmount = parseFloat(betAmount) || 0;
 
-  const handleBet = async (choice: 'cara' | 'coroa') => {
+  const handleCoinClick = async () => {
     if (numericAmount < 1.5) {
       toast({
         title: "Valor inválido",
@@ -63,13 +64,15 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
       return;
     }
 
+    if (disabled || isFlipping) return;
+
     setIsFlipping(true);
     setLastWon(null);
     setLastResult(null);
     playSound('coin-flip');
     
     try {
-      const result = await onBet(choice, numericAmount, selectedLevel);
+      const result = await onBet(selectedChoice, numericAmount, selectedLevel);
       
       // Spin for 4.5 seconds then show result
       setTimeout(() => {
@@ -193,24 +196,28 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda 3D Simples como a foto */}
+            {/* Moeda clicável */}
             <div 
-              className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'}`}
+              className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
+                isFlipping ? 'animate-[coinFlipPremium_4.5s_ease-out_forwards]' : ''
+              } cursor-pointer hover:scale-105 transition-transform duration-300`}
+              onClick={handleCoinClick}
               style={{
                 width: '160px',
                 height: '160px',
                 transformStyle: 'preserve-3d',
-                transition: 'transform 0.6s',
+                transition: isFlipping ? 'none' : 'transform 0.6s, filter 0.3s',
+                filter: isFlipping ? 'drop-shadow(0 0 50px rgba(255, 215, 0, 0.8))' : 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))',
               }}
             >
-              {/* Lado CARA - simples */}
+              {/* Lado CARA */}
               <div className="coin-side coin-front">
                 <div className="coin-inner">
                   <div className="coin-text">CARA</div>
                 </div>
               </div>
 
-              {/* Lado COROA - simples */}
+              {/* Lado COROA */}
               <div className="coin-side coin-back">
                 <div className="coin-inner">
                   <div className="coin-text">COROA</div>
@@ -220,6 +227,15 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               {/* Borda da moeda */}
               <div className="coin-edge"></div>
             </div>
+            
+            {/* Indicador de clique */}
+            {!isFlipping && (
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+                <div className="text-brand-gold text-sm font-semibold animate-pulse">
+                  👆 Clique para apostar!
+                </div>
+              </div>
+            )}
             
             {lastWon !== null && (
               <div 
@@ -239,6 +255,39 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             </div>
           </div>
         </div>
+
+        {/* Seleção de Escolha (CARA ou COROA) */}
+        <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+          <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
+            Sua Escolha
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant={selectedChoice === 'cara' ? "default" : "outline"}
+              onClick={() => setSelectedChoice('cara')}
+              disabled={disabled || isFlipping}
+              className={`p-4 h-auto text-base font-bold ${
+                selectedChoice === 'cara' 
+                  ? "bg-brand-gold text-brand-bg hover:bg-brand-gold-muted" 
+                  : "border-brand-gold/30 hover:border-brand-gold text-foreground hover:bg-brand-gold/10"
+              }`}
+            >
+              CARA
+            </Button>
+            <Button
+              variant={selectedChoice === 'coroa' ? "default" : "outline"}
+              onClick={() => setSelectedChoice('coroa')}
+              disabled={disabled || isFlipping}
+              className={`p-4 h-auto text-base font-bold ${
+                selectedChoice === 'coroa' 
+                  ? "bg-brand-gold text-brand-bg hover:bg-brand-gold-muted" 
+                  : "border-brand-gold/30 hover:border-brand-gold text-foreground hover:bg-brand-gold/10"
+              }`}
+            >
+              COROA
+            </Button>
+          </div>
+        </Card>
 
         {/* Bet Level Selection */}
         <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
@@ -289,31 +338,30 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
         </Card>
 
-        {/* Betting Buttons */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          <Button
-            size="lg"
-            onClick={() => handleBet('cara')}
-            disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
-            className="h-14 sm:h-16 md:h-20 text-lg sm:text-xl font-bold bg-brand-orange text-white hover:bg-brand-orange-muted transition-all duration-300 hover:shadow-lg active:scale-95"
-          >
-            CARA
-          </Button>
-          <Button
-            size="lg"
-            onClick={() => handleBet('coroa')}
-            disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
-            className="h-14 sm:h-16 md:h-20 text-lg sm:text-xl font-bold bg-brand-gold text-brand-bg hover:bg-brand-gold-muted transition-all duration-300 hover:shadow-lg active:scale-95"
-          >
-            COROA
-          </Button>
-        </div>
-
-        {/* Game Info */}
+        {/* Instruções */}
         <Card className="p-4 bg-brand-surface border-brand-gold/20">
-          <div className="text-center text-sm text-muted-foreground space-y-1">
-            <p>Nível {currentLevel.name}: <span className="text-brand-gold font-semibold">{currentLevel.multiplier}x</span></p>
-            <p>Saldo atual: <span className="text-brand-gold font-semibold">R$ {balance.toFixed(2)}</span></p>
+          <div className="text-center space-y-2">
+            <p className="text-sm font-semibold text-brand-gold">Como Jogar:</p>
+            <p className="text-xs text-muted-foreground">
+              1. Escolha <span className="text-brand-gold font-semibold">CARA</span> ou <span className="text-brand-gold font-semibold">COROA</span>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              2. Defina valor e nível da aposta
+            </p>
+            <p className="text-xs text-muted-foreground">
+              3. <span className="text-brand-gold font-semibold">Clique na moeda</span> para apostar!
+            </p>
+            <div className="mt-3 pt-2 border-t border-brand-gold/20">
+              <p className="text-xs text-muted-foreground">
+                Sua escolha: <span className="text-brand-gold font-semibold">{selectedChoice.toUpperCase()}</span>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Nível {currentLevel.name}: <span className="text-brand-gold font-semibold">{currentLevel.multiplier}x</span>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Saldo atual: <span className="text-brand-gold font-semibold">R$ {balance.toFixed(2)}</span>
+              </p>
+            </div>
           </div>
         </Card>
       </div>
