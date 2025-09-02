@@ -74,7 +74,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
     try {
       const result = await onBet(selectedChoice, numericAmount, selectedLevel);
       
-      // Spin for 4.5 seconds then show result
+      // Spin for 2 seconds then show result
       setTimeout(() => {
         setLastResult(result.result);
         setLastWon(result.won);
@@ -95,7 +95,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             variant: "destructive",
           });
         }
-      }, 4500);
+      }, 2000);
       
     } catch (error) {
       setIsFlipping(false);
@@ -109,75 +109,6 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
   return (
     <>
-      {/* Coin Flip Animation Overlay */}
-      {isFlipping && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-b from-sky-400/80 to-green-400/80 backdrop-blur-sm flex items-center justify-center overflow-hidden">
-          {/* Floating sparkles */}
-          <div className="absolute inset-0">
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 bg-yellow-300 rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 2}s`,
-                  filter: 'drop-shadow(0 0 4px rgba(255, 255, 0, 0.8))',
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Main coin animation container */}
-          <div className="relative flex flex-col items-center justify-center h-full w-full">
-            {/* Motion lines */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent rotate-45 animate-pulse opacity-60"></div>
-              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent -rotate-45 animate-pulse opacity-60"></div>
-            </div>
-
-            {/* Moeda simples sem animação complexa */}
-            <div className="relative">
-              <div 
-                className="coin-3d"
-                style={{
-                  width: '160px',
-                  height: '160px',
-                  transformStyle: 'preserve-3d',
-                }}
-              >
-                {/* Lado CARA */}
-                <div className="coin-side coin-front">
-                  <div className="coin-inner">
-                    <div className="coin-text">CARA</div>
-                  </div>
-                </div>
-
-                {/* Lado COROA */}
-                <div className="coin-side coin-back">
-                  <div className="coin-inner">
-                    <div className="coin-text">COROA</div>
-                  </div>
-                </div>
-
-                {/* Borda da moeda */}
-                <div className="coin-edge"></div>
-              </div>
-            </div>
-
-            {/* Status text */}
-            <div className="absolute bottom-20 text-center">
-              <div className="text-3xl font-bold text-yellow-300 animate-bounce drop-shadow-lg">
-                🪙 LANÇANDO MOEDA! 🪙
-              </div>
-              <div className="text-lg text-white/90 mt-2 animate-pulse">
-                Aguarde o resultado...
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6">
         {/* Coin Display */}
         <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
@@ -196,10 +127,10 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda clicável */}
+            {/* Moeda clicável com animação simples */}
             <div 
               className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
-                isFlipping ? 'animate-[coinFlipPremium_4.5s_ease-out_forwards]' : ''
+                isFlipping ? 'animate-spin' : ''
               } cursor-pointer hover:scale-105 transition-transform duration-300`}
               onClick={handleCoinClick}
               style={{
@@ -208,6 +139,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
                 transformStyle: 'preserve-3d',
                 transition: isFlipping ? 'none' : 'transform 0.6s, filter 0.3s',
                 filter: isFlipping ? 'drop-shadow(0 0 50px rgba(255, 215, 0, 0.8))' : 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))',
+                animationDuration: isFlipping ? '1s' : '0s',
               }}
             >
               {/* Lado CARA */}
@@ -233,6 +165,14 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
                 <div className="text-brand-gold text-sm font-semibold animate-pulse">
                   👆 Clique para apostar!
+                </div>
+              </div>
+            )}
+            
+            {isFlipping && (
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+                <div className="text-brand-gold text-sm font-semibold animate-pulse">
+                  🎰 Girando...
                 </div>
               </div>
             )}
