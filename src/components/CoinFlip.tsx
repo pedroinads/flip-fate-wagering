@@ -130,7 +130,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda sem clique */}
+            {/* Moeda apenas visual */}
             <div 
               className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
                 isFlipping ? (turboMode ? 'animate-spin' : 'animate-spin') : ''
@@ -227,31 +227,63 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
         </Card>
 
-        {/* Bet Level Selection */}
-        <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
-          <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
-            Nível da Aposta
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-            {betLevels.map((level) => (
-              <Button
-                key={level.level}
-                variant={selectedLevel === level.level ? "default" : "outline"}
-                onClick={() => setSelectedLevel(level.level)}
+        {/* Botão GIRAR e Modo TURBO */}
+        <div className="space-y-4">
+          {/* Toggle TURBO/NORMAL */}
+          <Card className="p-4 bg-gradient-card border-brand-gold/20">
+            <div className="flex items-center justify-center space-x-4">
+              <span className={`text-sm font-semibold ${!turboMode ? 'text-brand-gold' : 'text-muted-foreground'}`}>
+                NORMAL
+              </span>
+              <button
+                onClick={() => setTurboMode(!turboMode)}
                 disabled={disabled || isFlipping}
-                className={`p-3 h-auto flex flex-col text-sm sm:text-base ${
-                  selectedLevel === level.level 
-                    ? "bg-brand-gold text-brand-bg hover:bg-brand-gold-muted" 
-                    : "border-brand-gold/30 hover:border-brand-gold text-foreground hover:bg-brand-gold/10"
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  turboMode ? 'bg-orange-500' : 'bg-gray-600'
                 }`}
               >
-                <div className="font-bold">{level.name}</div>
-                <div className="text-xs opacity-80">{level.multiplier}x</div>
-              </Button>
-            ))}
-          </div>
-        </Card>
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    turboMode ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <span className={`text-sm font-semibold ${turboMode ? 'text-orange-500' : 'text-muted-foreground'}`}>
+                ⚡ TURBO
+              </span>
+            </div>
+            <div className="text-center text-xs text-muted-foreground mt-2">
+              {turboMode ? 'Giro rápido (1s)' : 'Giro normal (2.5s)'}
+            </div>
+          </Card>
 
+          {/* Botão GIRAR */}
+          <Button
+            onClick={handleSpin}
+            disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
+            size="lg"
+            className={`w-full h-16 text-2xl font-black transition-all duration-300 ${
+              turboMode 
+                ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg shadow-orange-500/30' 
+                : 'bg-gradient-to-r from-brand-gold to-yellow-500 hover:from-yellow-500 hover:to-brand-gold shadow-lg shadow-brand-gold/30'
+            } text-black hover:scale-105 active:scale-95 ${
+              isFlipping ? 'animate-pulse' : ''
+            }`}
+          >
+            {isFlipping ? (
+              <span className="flex items-center space-x-2">
+                <span className="animate-spin">🎰</span>
+                <span>{turboMode ? 'TURBO!' : 'GIRANDO...'}</span>
+              </span>
+            ) : (
+              <span className="flex items-center space-x-2">
+                <span>🎰</span>
+                <span>GIRAR</span>
+                {turboMode && <span>⚡</span>}
+              </span>
+            )}
+          </Button>
+        </div>
         {/* Bet Amount Input */}
         <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
           <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
@@ -324,63 +356,30 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
         </Card>
 
-        {/* Botão GIRAR e Modo TURBO */}
-        <div className="space-y-4">
-          {/* Toggle TURBO/NORMAL */}
-          <Card className="p-4 bg-gradient-card border-brand-gold/20">
-            <div className="flex items-center justify-center space-x-4">
-              <span className={`text-sm font-semibold ${!turboMode ? 'text-brand-gold' : 'text-muted-foreground'}`}>
-                NORMAL
-              </span>
-              <button
-                onClick={() => setTurboMode(!turboMode)}
+        {/* Bet Level Selection - Movido para depois do valor */}
+        <Card className="p-4 sm:p-6 bg-gradient-card border-brand-gold/20">
+          <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">
+            Nível da Aposta
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+            {betLevels.map((level) => (
+              <Button
+                key={level.level}
+                variant={selectedLevel === level.level ? "default" : "outline"}
+                onClick={() => setSelectedLevel(level.level)}
                 disabled={disabled || isFlipping}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  turboMode ? 'bg-orange-500' : 'bg-gray-600'
+                className={`p-3 h-auto flex flex-col text-sm sm:text-base ${
+                  selectedLevel === level.level 
+                    ? "bg-brand-gold text-brand-bg hover:bg-brand-gold-muted" 
+                    : "border-brand-gold/30 hover:border-brand-gold text-foreground hover:bg-brand-gold/10"
                 }`}
               >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    turboMode ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-              <span className={`text-sm font-semibold ${turboMode ? 'text-orange-500' : 'text-muted-foreground'}`}>
-                ⚡ TURBO
-              </span>
-            </div>
-            <div className="text-center text-xs text-muted-foreground mt-2">
-              {turboMode ? 'Giro rápido (1s)' : 'Giro normal (2.5s)'}
-            </div>
-          </Card>
-
-          {/* Botão GIRAR */}
-          <Button
-            onClick={handleSpin}
-            disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
-            size="lg"
-            className={`w-full h-16 text-2xl font-black transition-all duration-300 ${
-              turboMode 
-                ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg shadow-orange-500/30' 
-                : 'bg-gradient-to-r from-brand-gold to-yellow-500 hover:from-yellow-500 hover:to-brand-gold shadow-lg shadow-brand-gold/30'
-            } text-black hover:scale-105 active:scale-95 ${
-              isFlipping ? 'animate-pulse' : ''
-            }`}
-          >
-            {isFlipping ? (
-              <span className="flex items-center space-x-2">
-                <span className="animate-spin">🎰</span>
-                <span>{turboMode ? 'TURBO!' : 'GIRANDO...'}</span>
-              </span>
-            ) : (
-              <span className="flex items-center space-x-2">
-                <span>🎰</span>
-                <span>GIRAR</span>
-                {turboMode && <span>⚡</span>}
-              </span>
-            )}
-          </Button>
-        </div>
+                <div className="font-bold">{level.name}</div>
+                <div className="text-xs opacity-80">{level.multiplier}x</div>
+              </Button>
+            ))}
+          </div>
+        </Card>
 
         {/* Instruções Atualizadas */}
         <Card className="p-4 bg-brand-surface border-brand-gold/20">
