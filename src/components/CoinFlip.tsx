@@ -64,12 +64,14 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
     }
 
     setIsFlipping(true);
+    setLastWon(null);
+    setLastResult(null);
     playSound('coin-flip');
     
     try {
       const result = await onBet(choice, numericAmount, selectedLevel);
       
-      // Animate coin flip
+      // Spin for 4.5 seconds then show result
       setTimeout(() => {
         setLastResult(result.result);
         setLastWon(result.won);
@@ -90,7 +92,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             variant: "destructive",
           });
         }
-      }, 2000);
+      }, 4500);
       
     } catch (error) {
       setIsFlipping(false);
@@ -104,45 +106,22 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
   return (
     <>
-      {/* Full Screen Coin Animation Overlay */}
+      {/* Coin Spinning Overlay */}
       {isFlipping && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center">
-          {/* Background floating coins */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(8)].map((_, i) => (
-              <img
-                key={i}
-                src={i % 2 === 0 ? coinCaraImg : coinCoroaImg}
-                alt="Background coin"
-                className="absolute w-16 h-16 rounded-full opacity-20 animate-[coin-flip_3s_ease-in-out_infinite]"
-                style={{
-                  left: `${20 + (i * 10)}%`,
-                  top: `${10 + (i * 8)}%`,
-                  animationDelay: `${i * 0.3}s`,
-                  transform: `rotate(${i * 45}deg)`,
-                }}
-              />
-            ))}
-          </div>
-          
-          {/* Main large coin */}
-          <div className="relative z-10">
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+          <div className="text-center">
             <img
               src={coin3dCaraImg}
               alt="Girando moeda..."
-              className="w-64 h-64 sm:w-80 sm:h-80 shadow-2xl animate-spin"
+              className="w-48 h-48 sm:w-64 sm:h-64 mx-auto animate-[fast-spin_0.2s_linear_infinite]"
               style={{
-                filter: 'drop-shadow(0 0 40px rgba(255, 215, 0, 0.8))',
-                animation: 'spin 2s linear infinite, flipCoin 3s ease-in-out infinite'
+                filter: 'drop-shadow(0 0 30px rgba(255, 215, 0, 0.8))',
               }}
             />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-gold/20 to-transparent animate-pulse"></div>
-          </div>
-          
-          {/* Status text */}
-          <div className="absolute bottom-20 text-center text-brand-gold">
-            <div className="text-2xl font-bold animate-pulse">GIRANDO A MOEDA...</div>
-            <div className="text-lg opacity-80 mt-2">Aguarde o resultado</div>
+            <div className="mt-8 text-brand-gold">
+              <div className="text-2xl font-bold animate-pulse">GIRANDO...</div>
+              <div className="text-lg opacity-80 mt-2">Aguarde o resultado</div>
+            </div>
           </div>
         </div>
       )}
@@ -167,22 +146,16 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           <div className="relative">
             <img
               src={
-                isFlipping 
+                lastResult === 'cara' 
                   ? coin3dCaraImg
-                  : lastResult === 'cara' 
-                    ? coin3dCaraImg
-                    : lastResult === 'coroa'
-                      ? coin3dCoroaImg
-                      : coin3dCaraImg
+                  : lastResult === 'coroa'
+                    ? coin3dCoroaImg
+                    : coin3dCaraImg
               }
-              alt={isFlipping ? "Girando..." : (lastResult || "Moeda")}
-              className={`w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 transition-all duration-500 ${
-                isFlipping ? 'animate-spin transform-gpu will-change-transform' : 'hover:scale-105'
-              }`}
+              alt={lastResult || "Moeda"}
+              className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 transition-all duration-500 hover:scale-105"
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))',
-                transform: isFlipping ? 'rotateY(1080deg) rotateX(720deg)' : 'rotateY(0deg) rotateX(0deg)',
-                transition: isFlipping ? 'transform 2s ease-out' : 'transform 0.3s ease-out'
+                filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))'
               }}
             />
             {lastWon !== null && (
