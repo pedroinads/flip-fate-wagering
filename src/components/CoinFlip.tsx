@@ -106,21 +106,59 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
   return (
     <>
-      {/* Coin Spinning Overlay */}
+      {/* Coin Flip Animation Overlay */}
       {isFlipping && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
-          <div className="text-center">
-            <img
-              src={coin3dCaraImg}
-              alt="Girando moeda..."
-              className="w-48 h-48 sm:w-64 sm:h-64 mx-auto animate-[fast-spin_0.2s_linear_infinite]"
-              style={{
-                filter: 'drop-shadow(0 0 30px rgba(255, 215, 0, 0.8))',
-              }}
-            />
-            <div className="mt-8 text-brand-gold">
-              <div className="text-2xl font-bold animate-pulse">GIRANDO...</div>
-              <div className="text-lg opacity-80 mt-2">Aguarde o resultado</div>
+        <div className="fixed inset-0 z-50 bg-gradient-to-b from-sky-400/80 to-green-400/80 backdrop-blur-sm flex items-center justify-center overflow-hidden">
+          {/* Floating sparkles */}
+          <div className="absolute inset-0">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-yellow-300 rounded-full animate-pulse"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                  filter: 'drop-shadow(0 0 4px rgba(255, 255, 0, 0.8))',
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Main coin animation container */}
+          <div className="relative flex flex-col items-center justify-center h-full w-full">
+            {/* Motion lines */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent rotate-45 animate-pulse opacity-60"></div>
+              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent -rotate-45 animate-pulse opacity-60"></div>
+            </div>
+
+            {/* Coin with flip animation */}
+            <div className="relative">
+              <img
+                src={coin3dCaraImg}
+                alt="Moeda girando..."
+                className="w-32 h-32 sm:w-40 sm:h-40 animate-[coin-flip-toss_4.5s_ease-in-out_forwards]"
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.6))',
+                }}
+              />
+              
+              {/* Coin shadow */}
+              <div 
+                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-black/30 rounded-full animate-[shadow-bounce_4.5s_ease-in-out_forwards]"
+                style={{ transform: 'translateX(-50%) translateY(200px)' }}
+              ></div>
+            </div>
+
+            {/* Status text */}
+            <div className="absolute bottom-20 text-center">
+              <div className="text-3xl font-bold text-yellow-300 animate-bounce drop-shadow-lg">
+                🪙 LANÇANDO MOEDA! 🪙
+              </div>
+              <div className="text-lg text-white/90 mt-2 animate-pulse">
+                Aguarde o resultado...
+              </div>
             </div>
           </div>
         </div>
