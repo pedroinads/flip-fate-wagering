@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import coinCaraImage from '../assets/coin-cara-cartoon.png';
+import coinCoroaImage from '../assets/coin-coroa-cartoon.png';
 
 interface Coin3DProps {
   result?: 'cara' | 'coroa' | null;
@@ -33,29 +35,20 @@ export const Coin3D: React.FC<Coin3DProps> = ({
       >
         {/* Lado CARA */}
         <div className="coin-side coin-front">
-          <div className="coin-inner">
-            <div className="coin-text">CARA</div>
-            <div className="coin-decoration">
-              <div className="coin-ring"></div>
-              <div className="coin-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          </div>
+          <img 
+            src={coinCaraImage} 
+            alt="Cara da moeda" 
+            className="w-full h-full object-cover rounded-full"
+          />
         </div>
 
         {/* Lado COROA */}
         <div className="coin-side coin-back">
-          <div className="coin-inner">
-            <div className="coin-text">COROA</div>
-            <div className="coin-decoration">
-              <div className="coin-ring"></div>
-              <div className="coin-crown">♔</div>
-            </div>
-          </div>
+          <img 
+            src={coinCoroaImage} 
+            alt="Coroa da moeda" 
+            className="w-full h-full object-cover rounded-full"
+          />
         </div>
 
         {/* Borda da moeda */}
