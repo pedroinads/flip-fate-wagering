@@ -181,29 +181,39 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             </div>
           </div>
           
-          <div className="relative">
-            <img
-              src={
-                lastResult === 'cara' 
-                  ? coin3dCaraImg
-                  : lastResult === 'coroa'
-                    ? coin3dCoroaImg
-                    : coin3dCaraImg
-              }
-              alt={lastResult || "Moeda"}
-              className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 transition-all duration-500 hover:scale-105"
+          <div className="relative perspective-1000">
+            {/* Moeda 3D Virtual */}
+            <div 
+              className={`coin-3d ${lastResult === 'coroa' ? 'flip-to-coroa' : ''}`}
               style={{
-                filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))'
+                width: '160px',
+                height: '160px',
+                transformStyle: 'preserve-3d',
+                transition: 'transform 0.6s',
               }}
-            />
+            >
+              {/* Lado CARA */}
+              <div className="coin-face coin-cara">
+                <div className="coin-text">CARA</div>
+              </div>
+              
+              {/* Lado COROA */}
+              <div className="coin-face coin-coroa">
+                <div className="coin-text">COROA</div>
+              </div>
+              
+              {/* Borda da moeda */}
+              <div className="coin-edge"></div>
+            </div>
+            
             {lastWon !== null && (
-              <Badge 
-                className={`absolute -top-2 -right-2 text-xs ${
-                  lastWon ? 'bg-brand-green' : 'bg-destructive'
+              <div 
+                className={`absolute -top-2 -right-2 px-2 py-1 rounded-full text-xs font-bold ${
+                  lastWon ? 'bg-brand-green text-white' : 'bg-destructive text-white'
                 }`}
               >
                 {lastWon ? 'GANHOU!' : 'PERDEU'}
-              </Badge>
+              </div>
             )}
           </div>
 
