@@ -126,12 +126,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           {/* Main large coin */}
           <div className="relative z-10">
             <img
-              src={coinCaraImg}
+              src="/src/assets/coin-3d-cara.png"
               alt="Girando moeda..."
-              className="w-64 h-64 sm:w-80 sm:h-80 rounded-full border-8 border-brand-gold shadow-2xl animate-[coin-flip_2s_ease-out_infinite]"
+              className="w-64 h-64 sm:w-80 sm:h-80 shadow-2xl animate-spin"
               style={{
                 filter: 'drop-shadow(0 0 40px rgba(255, 215, 0, 0.8))',
-                animation: 'coin-flip 2s ease-out infinite, pulse-gold 1.5s ease-in-out infinite alternate'
+                animation: 'spin 2s linear infinite, flipCoin 3s ease-in-out infinite'
               }}
             />
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-gold/20 to-transparent animate-pulse"></div>
@@ -164,10 +164,18 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           
           <div className="relative">
             <img
-              src={isFlipping ? coinCaraImg : (lastResult === 'cara' ? coinCaraImg : coinCoroaImg)}
+              src={
+                isFlipping 
+                  ? "/src/assets/coin-3d-cara.png"
+                  : lastResult === 'cara' 
+                    ? "/src/assets/coin-3d-cara.png"
+                    : lastResult === 'coroa'
+                      ? "/src/assets/coin-3d-coroa.png"
+                      : "/src/assets/coin-3d-cara.png"
+              }
               alt={isFlipping ? "Girando..." : (lastResult || "Moeda")}
-              className={`w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-4 border-brand-gold shadow-brand transition-all duration-500 ${
-                isFlipping ? 'animate-coin-flip transform-gpu will-change-transform' : 'hover:scale-105'
+              className={`w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 transition-all duration-500 ${
+                isFlipping ? 'animate-spin transform-gpu will-change-transform' : 'hover:scale-105'
               }`}
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))',

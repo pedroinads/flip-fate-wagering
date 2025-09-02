@@ -279,32 +279,32 @@ export default function Settings() {
     <AdminLayout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-casino-gold">Configurações do Sistema</h1>
-          <Button onClick={saveAllSettings} disabled={saving} className="gap-2">
+          <h1 className="text-2xl font-bold text-brand-gold">Configurações do Sistema</h1>
+          <Button onClick={saveAllSettings} disabled={saving} className="gap-2 bg-brand-gold text-brand-bg hover:bg-brand-gold-muted">
             {saving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             {saving ? 'Salvando...' : 'Salvar Tudo'}
           </Button>
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="general" className="gap-2">
+          <TabsList className="grid w-full grid-cols-5 bg-brand-surface">
+            <TabsTrigger value="general" className="gap-2 data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">
               <SettingsIcon className="w-4 h-4" />
               Geral
             </TabsTrigger>
-            <TabsTrigger value="security" className="gap-2">
+            <TabsTrigger value="security" className="gap-2 data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">
               <Shield className="w-4 h-4" />
               Segurança
             </TabsTrigger>
-            <TabsTrigger value="notifications" className="gap-2">
+            <TabsTrigger value="notifications" className="gap-2 data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">
               <Bell className="w-4 h-4" />
               Notificações
             </TabsTrigger>
-            <TabsTrigger value="database" className="gap-2">
+            <TabsTrigger value="database" className="gap-2 data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">
               <Database className="w-4 h-4" />
               Banco de Dados
             </TabsTrigger>
-            <TabsTrigger value="maintenance" className="gap-2">
+            <TabsTrigger value="maintenance" className="gap-2 data-[state=active]:bg-brand-gold data-[state=active]:text-brand-bg">
               <AlertTriangle className="w-4 h-4" />
               Manutenção
             </TabsTrigger>
@@ -315,41 +315,45 @@ export default function Settings() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Informações do Site</CardTitle>
+                  <CardTitle className="text-brand-gold">Informações do Site</CardTitle>
                   <CardDescription>Configurações básicas da plataforma</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label htmlFor="siteName">Nome do Site</Label>
+                    <Label htmlFor="siteName" className="text-foreground">Nome do Site</Label>
                     <Input
                       id="siteName"
                       value={systemSettings.siteName}
                       onChange={(e) => setSystemSettings(prev => ({ ...prev, siteName: e.target.value }))}
+                      className="bg-brand-surface border-brand-gold/20 text-foreground"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="siteDescription">Descrição</Label>
+                    <Label htmlFor="siteDescription" className="text-foreground">Descrição</Label>
                     <Textarea
                       id="siteDescription"
                       value={systemSettings.siteDescription}
                       onChange={(e) => setSystemSettings(prev => ({ ...prev, siteDescription: e.target.value }))}
+                      className="bg-brand-surface border-brand-gold/20 text-foreground"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="supportEmail">Email de Suporte</Label>
+                    <Label htmlFor="supportEmail" className="text-foreground">Email de Suporte</Label>
                     <Input
                       id="supportEmail"
                       type="email"
                       value={systemSettings.supportEmail}
                       onChange={(e) => setSystemSettings(prev => ({ ...prev, supportEmail: e.target.value }))}
+                      className="bg-brand-surface border-brand-gold/20 text-foreground"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="supportPhone">Telefone de Suporte</Label>
+                    <Label htmlFor="supportPhone" className="text-foreground">Telefone de Suporte</Label>
                     <Input
                       id="supportPhone"
                       value={systemSettings.supportPhone}
                       onChange={(e) => setSystemSettings(prev => ({ ...prev, supportPhone: e.target.value }))}
+                      className="bg-brand-surface border-brand-gold/20 text-foreground"
                     />
                   </div>
                 </CardContent>

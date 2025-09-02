@@ -70,7 +70,7 @@ serve(async (req) => {
     const randomValue = new Uint8Array(hash)[0];
     const result = randomValue % 2 === 0 ? 'cara' : 'coroa';
     
-    // Check if player wins based on level win chance
+    // Check if player wins - if choice matches result, check win chance
     const winRandom = (randomValue / 255) * 100;
     const playerWins = choice === result && winRandom <= currentLevel.winChance;
     

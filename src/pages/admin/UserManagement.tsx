@@ -80,15 +80,15 @@ export default function UserManagement() {
     <AdminLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-casino-gold">Gerenciamento de Usuários</h1>
-          <Button className="bg-casino-gold text-casino-bg hover:bg-casino-gold-muted">
+          <h1 className="text-2xl font-bold text-brand-gold">Gerenciamento de Usuários</h1>
+          <Button className="bg-brand-gold text-brand-bg hover:bg-brand-gold-muted">
             <UserPlus className="w-4 h-4 mr-2" />
             Novo Usuário
           </Button>
         </div>
 
         {/* Search and Filters */}
-        <Card className="p-4 bg-gradient-card border-casino-gold/20">
+        <Card className="p-4 bg-gradient-card border-brand-gold/20">
           <div className="flex items-center space-x-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -96,13 +96,13 @@ export default function UserManagement() {
                 placeholder="Buscar por email ou nome..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-casino-surface border-casino-gold/20"
+                className="pl-10 bg-brand-surface border-brand-gold/20 text-foreground"
               />
             </div>
             <Button
               onClick={fetchUsers}
               variant="outline"
-              className="border-casino-gold/20"
+              className="border-brand-gold/20 text-foreground hover:bg-brand-surface/50"
             >
               Atualizar
             </Button>
@@ -110,19 +110,19 @@ export default function UserManagement() {
         </Card>
 
         {/* Users Table */}
-        <Card className="bg-gradient-card border-casino-gold/20">
+        <Card className="bg-gradient-card border-brand-gold/20">
           <div className="p-6">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-casino-gold/20">
-                    <th className="text-left py-3 text-casino-gold font-semibold">Email</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Nome</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Saldo</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Total Depositado</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Total Sacado</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Cadastro</th>
-                    <th className="text-left py-3 text-casino-gold font-semibold">Ações</th>
+                  <tr className="border-b border-brand-gold/20">
+                    <th className="text-left py-3 text-brand-gold font-semibold">Email</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Nome</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Saldo</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Total Depositado</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Total Sacado</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Cadastro</th>
+                    <th className="text-left py-3 text-brand-gold font-semibold">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,18 +140,18 @@ export default function UserManagement() {
                     </tr>
                   ) : (
                     filteredUsers.map((user) => (
-                      <tr key={user.id} className="border-b border-casino-gold/10 hover:bg-casino-surface/20">
-                        <td className="py-3 text-casino-gold">{user.email}</td>
-                        <td className="py-3 text-casino-gold">{user.full_name || '-'}</td>
+                      <tr key={user.id} className="border-b border-brand-gold/10 hover:bg-brand-surface/20">
+                        <td className="py-3 text-foreground">{user.email}</td>
+                        <td className="py-3 text-foreground">{user.full_name || '-'}</td>
                         <td className="py-3">
                           <Badge variant="outline" className="text-green-500 border-green-500/30">
                             R$ {Number(user.balance).toFixed(2)}
                           </Badge>
                         </td>
-                        <td className="py-3 text-casino-gold">
+                        <td className="py-3 text-foreground">
                           R$ {Number(user.total_deposited).toFixed(2)}
                         </td>
-                        <td className="py-3 text-casino-gold">
+                        <td className="py-3 text-foreground">
                           R$ {Number(user.total_withdrawn).toFixed(2)}
                         </td>
                         <td className="py-3 text-muted-foreground">
@@ -159,10 +159,10 @@ export default function UserManagement() {
                         </td>
                         <td className="py-3">
                           <div className="flex items-center space-x-2">
-                            <Button size="sm" variant="outline" className="border-casino-gold/20">
+                            <Button size="sm" variant="outline" className="border-brand-gold/20 text-foreground hover:bg-brand-surface/50">
                               <Edit className="w-3 h-3" />
                             </Button>
-                            <Button size="sm" variant="outline" className="border-red-500/20 text-red-500">
+                            <Button size="sm" variant="outline" className="border-red-500/20 text-red-500 hover:bg-red-500/10">
                               <Trash2 className="w-3 h-3" />
                             </Button>
                           </div>
