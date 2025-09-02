@@ -61,7 +61,8 @@ export type Database = {
           expires_at: string
           id: string
           is_active: boolean | null
-          password_hash: string
+          last_activity: string | null
+          session_token: string | null
         }
         Insert: {
           balance?: number | null
@@ -70,7 +71,8 @@ export type Database = {
           expires_at?: string
           id?: string
           is_active?: boolean | null
-          password_hash: string
+          last_activity?: string | null
+          session_token?: string | null
         }
         Update: {
           balance?: number | null
@@ -79,7 +81,8 @@ export type Database = {
           expires_at?: string
           id?: string
           is_active?: boolean | null
-          password_hash?: string
+          last_activity?: string | null
+          session_token?: string | null
         }
         Relationships: []
       }
@@ -232,12 +235,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_demo_accounts: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      create_demo_session: {
+        Args: { demo_email: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      validate_demo_session: {
+        Args: { token: string }
+        Returns: {
+          balance: number
+          email: string
+          expires_at: string
+        }[]
       }
     }
     Enums: {

@@ -71,7 +71,6 @@ export default function DemoAccounts() {
         .from('demo_accounts')
         .insert({
           email: newAccountEmail,
-          password_hash: 'demo123', // Simplified for demo
           balance: parseFloat(newAccountBalance),
           expires_at: expiresAt.toISOString()
         })
@@ -213,10 +212,10 @@ export default function DemoAccounts() {
             </div>
           </div>
 
-          <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-            <p className="text-sm text-blue-400">
-              💡 <strong>Informação:</strong> Contas demo expiram automaticamente em 7 dias. 
-              Senha padrão: "demo123". Use para testes e demonstrações.
+          <div className="mt-4 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+            <p className="text-sm text-green-400">
+              🔒 <strong>Sistema Seguro:</strong> Contas demo usam tokens de sessão seguros (sem senhas). 
+              Cada conta expira automaticamente em 7 dias e sessões inativas expiram em 24 horas.
             </p>
           </div>
         </Card>
