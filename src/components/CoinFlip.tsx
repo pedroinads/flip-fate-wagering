@@ -25,6 +25,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const [betAmount, setBetAmount] = useState('1.50');
   const [selectedLevel, setSelectedLevel] = useState(1);
   const [selectedChoice, setSelectedChoice] = useState<'cara' | 'coroa'>('cara');
+  const [turboMode, setTurboMode] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
   const [lastResult, setLastResult] = useState<'cara' | 'coroa' | null>(null);
   const [lastWon, setLastWon] = useState<boolean | null>(null);
@@ -45,7 +46,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const currentLevel = betLevels.find(level => level.level === selectedLevel)!;
   const numericAmount = parseFloat(betAmount) || 0;
 
-  const handleCoinClick = async () => {
+  const handleSpin = async () => {
     if (numericAmount < 1.5) {
       toast({
         title: "Valor inválido",
@@ -74,7 +75,9 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
     try {
       const result = await onBet(selectedChoice, numericAmount, selectedLevel);
       
-      // Spin for 2 seconds then show result
+      // Tempo baseado no modo: TURBO (1s) ou NORMAL (2.5s)
+      const spinDuration = turboMode ? 1000 : 2500;
+      
       setTimeout(() => {
         setLastResult(result.result);
         setLastWon(result.won);
@@ -95,7 +98,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             variant: "destructive",
           });
         }
-      }, 2000);
+      }, spinDuration);
       
     } catch (error) {
       setIsFlipping(false);
@@ -127,19 +130,18 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda clicável com animação simples */}
+            {/* Moeda sem clique */}
             <div 
               className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
-                isFlipping ? 'animate-spin' : ''
-              } cursor-pointer hover:scale-105 transition-transform duration-300`}
-              onClick={handleCoinClick}
+                isFlipping ? (turboMode ? 'animate-spin' : 'animate-spin') : ''
+              } transition-transform duration-300`}
               style={{
                 width: '160px',
                 height: '160px',
                 transformStyle: 'preserve-3d',
                 transition: isFlipping ? 'none' : 'transform 0.6s, filter 0.3s',
                 filter: isFlipping ? 'drop-shadow(0 0 50px rgba(255, 215, 0, 0.8))' : 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))',
-                animationDuration: isFlipping ? '1s' : '0s',
+                animationDuration: isFlipping ? (turboMode ? '0.1s' : '0.3s') : '0s',
               }}
             >
               {/* Lado CARA */}
@@ -160,22 +162,18 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               <div className="coin-edge"></div>
             </div>
             
-            {/* Indicador de clique */}
-            {!isFlipping && (
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+            {/* Status da moeda */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+              {isFlipping ? (
                 <div className="text-brand-gold text-sm font-semibold animate-pulse">
-                  👆 Clique para apostar!
+                  {turboMode ? '⚡ TURBO!' : '🎰 Girando...'}
                 </div>
-              </div>
-            )}
-            
-            {isFlipping && (
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-                <div className="text-brand-gold text-sm font-semibold animate-pulse">
-                  🎰 Girando...
+              ) : (
+                <div className="text-brand-gold text-sm font-semibold">
+                  Sua escolha: {selectedChoice.toUpperCase()}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
             
             {lastWon !== null && (
               <div 
@@ -326,7 +324,65 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
         </Card>
 
-        {/* Instruções */}
+        {/* Botão GIRAR e Modo TURBO */}
+        <div className="space-y-4">
+          {/* Toggle TURBO/NORMAL */}
+          <Card className="p-4 bg-gradient-card border-brand-gold/20">
+            <div className="flex items-center justify-center space-x-4">
+              <span className={`text-sm font-semibold ${!turboMode ? 'text-brand-gold' : 'text-muted-foreground'}`}>
+                NORMAL
+              </span>
+              <button
+                onClick={() => setTurboMode(!turboMode)}
+                disabled={disabled || isFlipping}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  turboMode ? 'bg-orange-500' : 'bg-gray-600'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    turboMode ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <span className={`text-sm font-semibold ${turboMode ? 'text-orange-500' : 'text-muted-foreground'}`}>
+                ⚡ TURBO
+              </span>
+            </div>
+            <div className="text-center text-xs text-muted-foreground mt-2">
+              {turboMode ? 'Giro rápido (1s)' : 'Giro normal (2.5s)'}
+            </div>
+          </Card>
+
+          {/* Botão GIRAR */}
+          <Button
+            onClick={handleSpin}
+            disabled={disabled || isFlipping || numericAmount > balance || numericAmount < 1.5}
+            size="lg"
+            className={`w-full h-16 text-2xl font-black transition-all duration-300 ${
+              turboMode 
+                ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg shadow-orange-500/30' 
+                : 'bg-gradient-to-r from-brand-gold to-yellow-500 hover:from-yellow-500 hover:to-brand-gold shadow-lg shadow-brand-gold/30'
+            } text-black hover:scale-105 active:scale-95 ${
+              isFlipping ? 'animate-pulse' : ''
+            }`}
+          >
+            {isFlipping ? (
+              <span className="flex items-center space-x-2">
+                <span className="animate-spin">🎰</span>
+                <span>{turboMode ? 'TURBO!' : 'GIRANDO...'}</span>
+              </span>
+            ) : (
+              <span className="flex items-center space-x-2">
+                <span>🎰</span>
+                <span>GIRAR</span>
+                {turboMode && <span>⚡</span>}
+              </span>
+            )}
+          </Button>
+        </div>
+
+        {/* Instruções Atualizadas */}
         <Card className="p-4 bg-brand-surface border-brand-gold/20">
           <div className="text-center space-y-2">
             <p className="text-sm font-semibold text-brand-gold">Como Jogar:</p>
@@ -337,11 +393,19 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               2. Defina valor e nível da aposta
             </p>
             <p className="text-xs text-muted-foreground">
-              3. <span className="text-brand-gold font-semibold">Clique na moeda</span> para apostar!
+              3. Ative o <span className="text-orange-500 font-semibold">TURBO</span> para giros rápidos
+            </p>
+            <p className="text-xs text-muted-foreground">
+              4. <span className="text-brand-gold font-semibold">Clique em GIRAR</span> para apostar!
             </p>
             <div className="mt-3 pt-2 border-t border-brand-gold/20">
               <p className="text-xs text-muted-foreground">
                 Sua escolha: <span className="text-brand-gold font-semibold">{selectedChoice.toUpperCase()}</span>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Modo: <span className={`font-semibold ${turboMode ? 'text-orange-500' : 'text-brand-gold'}`}>
+                  {turboMode ? 'TURBO ⚡' : 'NORMAL'}
+                </span>
               </p>
               <p className="text-xs text-muted-foreground">
                 Nível {currentLevel.name}: <span className="text-brand-gold font-semibold">{currentLevel.multiplier}x</span>
