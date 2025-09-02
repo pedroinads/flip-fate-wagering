@@ -1,0 +1,303 @@
+/* Container da moeda */
+.coin-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 20px auto;
+  perspective: 1000px;
+}
+
+/* Moeda 3D principal */
+.coin-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Estados da moeda */
+.coin-3d.show-coroa {
+  transform: rotateY(180deg);
+}
+
+.coin-3d.show-cara {
+  transform: rotateY(0deg);
+}
+
+/* Lados da moeda */
+.coin-side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  
+  /* Gradiente dourado base */
+  background: 
+    radial-gradient(ellipse 40% 25% at 30% 25%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(ellipse 20% 15% at 70% 70%, rgba(139, 69, 19, 0.4), transparent 50%),
+    conic-gradient(from 0deg, #ffd700 0%, #ffed4e 25%, #b8860b 50%, #daa520 75%, #ffd700 100%);
+  
+  /* Bordas e sombras */
+  border: 8px solid;
+  border-image: conic-gradient(from 45deg, #b8860b, #daa520, #ffd700, #ffed4e, #b8860b) 1;
+  
+  box-shadow: 
+    inset 0 4px 15px rgba(255, 255, 255, 0.6),
+    inset 0 -4px 15px rgba(139, 69, 19, 0.4),
+    inset 0 0 40px rgba(255, 215, 0, 0.3),
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 0 50px rgba(255, 215, 0, 0.3);
+}
+
+/* Frente da moeda */
+.coin-front {
+  transform: rotateY(0deg) translateZ(5px);
+}
+
+/* Verso da moeda */
+.coin-back {
+  transform: rotateY(180deg) translateZ(5px);
+}
+
+/* Container interno da moeda */
+.coin-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Texto da moeda */
+.coin-text {
+  font-size: 32px;
+  font-weight: 900;
+  font-family: 'Arial Black', Arial, sans-serif;
+  color: #2c1810;
+  text-shadow: 
+    1px 1px 0 #ffd700,
+    2px 2px 0 #b8860b,
+    3px 3px 0 #8b6914,
+    4px 4px 8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.8);
+  
+  letter-spacing: 4px;
+  text-align: center;
+  z-index: 10;
+  
+  /* Efeito metálico */
+  background: linear-gradient(135deg, #fff200 0%, #ff8f00 30%, #b8860b 70%, #654321 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  /* Efeito de relevo */
+  filter: 
+    drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+/* Decorações da moeda */
+.coin-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Anel decorativo */
+.coin-ring {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border: 3px solid rgba(184, 134, 11, 0.6);
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 10px rgba(255, 215, 0, 0.4),
+    0 0 5px rgba(184, 134, 11, 0.3);
+}
+
+/* Pontos decorativos para CARA */
+.coin-dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.coin-dots span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffd700, #b8860b);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+}
+
+.coin-dots span:nth-child(1) { top: -60px; left: -4px; }
+.coin-dots span:nth-child(2) { top: 56px; left: -4px; }
+.coin-dots span:nth-child(3) { left: -60px; top: -4px; }
+.coin-dots span:nth-child(4) { left: 56px; top: -4px; }
+
+/* Coroa decorativa para COROA */
+.coin-crown {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: #ffd700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.8),
+    2px 2px 4px rgba(0, 0, 0, 0.6);
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.6));
+}
+
+/* Borda/espessura da moeda */
+.coin-edge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(90deg);
+  width: 100%;
+  height: 30px;
+  background: 
+    repeating-linear-gradient(90deg,
+      #b8860b 0px, 
+      #daa520 3px, 
+      #ffd700 6px, 
+      #daa520 9px, 
+      #b8860b 12px
+    );
+  border-radius: 15px;
+  
+  box-shadow: 
+    0 0 20px rgba(184, 134, 11, 0.6),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(139, 69, 19, 0.4);
+}
+
+/* Linhas na borda */
+.edge-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: rgba(184, 134, 11, 0.8);
+  border-radius: 1px;
+}
+
+.edge-line:nth-child(1) { top: 2px; }
+.edge-line:nth-child(2) { top: 8px; }
+.edge-line:nth-child(3) { top: 14px; }
+.edge-line:nth-child(4) { top: 20px; }
+.edge-line:nth-child(5) { bottom: 2px; }
+
+/* Sombra da moeda */
+.coin-shadow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4), transparent);
+  border-radius: 50%;
+  filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+/* Animação principal de flip */
+@keyframes coinFlip {
+  0% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: translateY(-100px) rotateY(450deg) rotateX(180deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-120px) rotateY(900deg) rotateX(360deg) scale(1.2);
+  }
+  75% {
+    transform: translateY(-80px) rotateY(1350deg) rotateX(540deg) scale(1.1);
+  }
+  85% {
+    transform: translateY(0) rotateY(1800deg) rotateX(720deg) scale(1);
+  }
+  92% {
+    transform: translateY(-20px) rotateY(1800deg) rotateX(720deg) scale(0.95);
+  }
+  96% {
+    transform: translateY(0) rotateY(1800deg) rotateX(720deg) scale(1);
+  }
+  100% {
+    transform: translateY(0) rotateY(1800deg) rotateX(720deg) scale(1);
+  }
+}
+
+/* Animação da sombra durante o flip */
+.coin-shadow.shadow-animation {
+  animation: shadowBounce 3s ease-out forwards;
+}
+
+@keyframes shadowBounce {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.5);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0.6;
+  }
+  85% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+  92% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.4;
+  }
+}
+
+/* Efeitos hover */
+.coin-3d:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .coin-container {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .coin-text {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  .coin-crown {
+    font-size: 18px;
+  }
+}

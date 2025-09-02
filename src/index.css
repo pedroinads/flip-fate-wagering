@@ -344,6 +344,4 @@
     inset 0 -2px 4px rgba(139, 69, 19, 0.4);
 }
 
-.animate-flip-coin {
-  animation: flipCoin 2s ease-in-out infinite;
-}
+@import './styles/coin3d.css';
