@@ -222,13 +222,9 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             
             {/* Status da moeda */}
             <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-              {isFlipping ? (
+              {isFlipping && (
                 <div className="text-brand-gold text-sm font-semibold animate-pulse">
                   {turboMode ? '⚡ TURBO!' : '🎰 Girando...'}
-                </div>
-              ) : (
-                <div className="text-brand-gold text-sm font-semibold">
-                  Sua escolha: {selectedChoice.toUpperCase()}
                 </div>
               )}
             </div>
