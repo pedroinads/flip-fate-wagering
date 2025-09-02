@@ -135,14 +135,28 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
             {/* Coin with flip animation */}
             <div className="relative">
-              <img
-                src={coin3dCaraImg}
-                alt="Moeda girando..."
-                className="w-32 h-32 sm:w-40 sm:h-40 animate-[coin-flip-toss_4.5s_ease-in-out_forwards]"
+              {/* Moeda 3D Virtual girando */}
+              <div 
+                className="coin-3d animate-[coin-flip-toss_4.5s_ease-in-out_forwards]"
                 style={{
-                  filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.6))',
+                  width: '160px',
+                  height: '160px',
+                  transformStyle: 'preserve-3d',
                 }}
-              />
+              >
+                {/* Lado CARA */}
+                <div className="coin-face coin-cara">
+                  <div className="coin-text">CARA</div>
+                </div>
+                
+                {/* Lado COROA */}
+                <div className="coin-face coin-coroa">
+                  <div className="coin-text">COROA</div>
+                </div>
+                
+                {/* Borda da moeda */}
+                <div className="coin-edge"></div>
+              </div>
               
               {/* Coin shadow */}
               <div 
