@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useAudioManager } from '@/hooks/useAudioManager';
+import { Volume2, VolumeX } from 'lucide-react';
 import coinCaraImg from '@/assets/coin-cara-text.jpg';
 import coinCoroaImg from '@/assets/coin-coroa-text.jpg';
 import coin3dCaraImg from '@/assets/coin-3d-cara.png';
@@ -30,6 +32,30 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
   const [lastResult, setLastResult] = useState<'cara' | 'coroa' | null>(null);
   const [lastWon, setLastWon] = useState<boolean | null>(null);
   const { toast } = useToast();
+  const audioManager = useAudioManager();
+
+  // Iniciar música de fundo quando componente carrega
+  useEffect(() => {
+    const startMusic = () => {
+      audioManager.playBackgroundMusic();
+    };
+
+    // Tentar tocar após interação do usuário
+    const handleUserInteraction = () => {
+      startMusic();
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+      audioManager.stopBackgroundMusic();
+    };
+  }, [audioManager]);
 
   const playSound = (soundFile: string) => {
     try {
@@ -70,7 +96,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
     setIsFlipping(true);
     setLastWon(null);
     setLastResult(null);
-    playSound('coin-flip');
+    audioManager.playCoinSound(); // Som de moeda caindo
     
     try {
       const result = await onBet(selectedChoice, numericAmount, selectedLevel);
@@ -84,14 +110,14 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
         setIsFlipping(false);
         
         if (result.won) {
-          playSound('win');
+          audioManager.playWinSound();
           toast({
             title: "Parabéns! Você ganhou!",
             description: `Você ganhou R$ ${result.payout.toFixed(2)}`,
             className: "bg-brand-green",
           });
         } else {
-          playSound('lose');
+          audioManager.playLoseSound();
           toast({
             title: "Que pena!",
             description: `O resultado foi ${result.result}. Tente novamente!`,
@@ -112,6 +138,22 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
 
   return (
     <>
+      {/* Botão de Controle de Áudio */}
+      <div className="fixed top-4 right-4 z-50">
+        <Button
+          onClick={audioManager.toggleMute}
+          variant="outline"
+          size="sm"
+          className="bg-brand-surface border-brand-gold/30 hover:border-brand-gold text-brand-gold hover:bg-brand-gold/10"
+        >
+          {audioManager.isMuted ? (
+            <VolumeX className="w-4 h-4" />
+          ) : (
+            <Volume2 className="w-4 h-4" />
+          )}
+        </Button>
+      </div>
+
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6">
         {/* Coin Display */}
         <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
