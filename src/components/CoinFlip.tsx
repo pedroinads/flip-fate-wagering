@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import coinCaraImg from '@/assets/coin-cara-text.jpg';
 import coinCoroaImg from '@/assets/coin-coroa-text.jpg';
+import coin3dCaraImg from '@/assets/coin-3d-cara.png';
+import coin3dCoroaImg from '@/assets/coin-3d-coroa.png';
 
 interface CoinFlipProps {
   onBet: (choice: 'cara' | 'coroa', amount: number, level: number) => Promise<{ won: boolean; result: 'cara' | 'coroa'; payout: number }>;
@@ -126,7 +128,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           {/* Main large coin */}
           <div className="relative z-10">
             <img
-              src="/src/assets/coin-3d-cara.png"
+              src={coin3dCaraImg}
               alt="Girando moeda..."
               className="w-64 h-64 sm:w-80 sm:h-80 shadow-2xl animate-spin"
               style={{
@@ -166,12 +168,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
             <img
               src={
                 isFlipping 
-                  ? "/src/assets/coin-3d-cara.png"
+                  ? coin3dCaraImg
                   : lastResult === 'cara' 
-                    ? "/src/assets/coin-3d-cara.png"
+                    ? coin3dCaraImg
                     : lastResult === 'coroa'
-                      ? "/src/assets/coin-3d-coroa.png"
-                      : "/src/assets/coin-3d-cara.png"
+                      ? coin3dCoroaImg
+                      : coin3dCaraImg
               }
               alt={isFlipping ? "Girando..." : (lastResult || "Moeda")}
               className={`w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 transition-all duration-500 ${
