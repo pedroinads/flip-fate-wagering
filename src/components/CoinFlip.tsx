@@ -133,11 +133,10 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
               <div className="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent -rotate-45 animate-pulse opacity-60"></div>
             </div>
 
-            {/* Coin with flip animation */}
+            {/* Moeda simples sem animação complexa */}
             <div className="relative">
-              {/* Moeda 3D Virtual girando */}
               <div 
-                className="coin-3d animate-[coinFlip_4.5s_ease-out_forwards]"
+                className="coin-3d"
                 style={{
                   width: '160px',
                   height: '160px',
@@ -148,15 +147,6 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
                 <div className="coin-side coin-front">
                   <div className="coin-inner">
                     <div className="coin-text">CARA</div>
-                    <div className="coin-decoration">
-                      <div className="coin-ring"></div>
-                      <div className="coin-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -164,28 +154,12 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
                 <div className="coin-side coin-back">
                   <div className="coin-inner">
                     <div className="coin-text">COROA</div>
-                    <div className="coin-decoration">
-                      <div className="coin-ring"></div>
-                      <div className="coin-crown">♔</div>
-                    </div>
                   </div>
                 </div>
 
                 {/* Borda da moeda */}
-                <div className="coin-edge">
-                  <div className="edge-line"></div>
-                  <div className="edge-line"></div>
-                  <div className="edge-line"></div>
-                  <div className="edge-line"></div>
-                  <div className="edge-line"></div>
-                </div>
+                <div className="coin-edge"></div>
               </div>
-              
-              {/* Coin shadow */}
-              <div 
-                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-black/30 rounded-full animate-[shadowBounce_4.5s_ease-out_forwards]"
-                style={{ transform: 'translateX(-50%) translateY(200px)' }}
-              ></div>
             </div>
 
             {/* Status text */}
@@ -219,7 +193,7 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda 3D Virtual */}
+            {/* Moeda 3D Simples como a foto */}
             <div 
               className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'}`}
               style={{
@@ -229,41 +203,22 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
                 transition: 'transform 0.6s',
               }}
             >
-              {/* Lado CARA */}
+              {/* Lado CARA - simples */}
               <div className="coin-side coin-front">
                 <div className="coin-inner">
                   <div className="coin-text">CARA</div>
-                  <div className="coin-decoration">
-                    <div className="coin-ring"></div>
-                    <div className="coin-dots">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              {/* Lado COROA */}
+              {/* Lado COROA - simples */}
               <div className="coin-side coin-back">
                 <div className="coin-inner">
                   <div className="coin-text">COROA</div>
-                  <div className="coin-decoration">
-                    <div className="coin-ring"></div>
-                    <div className="coin-crown">♔</div>
-                  </div>
                 </div>
               </div>
 
               {/* Borda da moeda */}
-              <div className="coin-edge">
-                <div className="edge-line"></div>
-                <div className="edge-line"></div>
-                <div className="edge-line"></div>
-                <div className="edge-line"></div>
-                <div className="edge-line"></div>
-              </div>
+              <div className="coin-edge"></div>
             </div>
             
             {lastWon !== null && (

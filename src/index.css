@@ -371,29 +371,24 @@
   transform: rotateY(0deg);
 }
 
-/* Lados da moeda */
+/* Lados da moeda - exatamente como a foto */
 .coin-side {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   backface-visibility: hidden;
-  overflow: visible;
   
-  /* Gradiente dourado igual à referência */
+  /* Gradiente dourado simples e liso como na foto */
   background: 
-    radial-gradient(ellipse 30% 20% at 30% 30%, rgba(255, 255, 255, 0.8), transparent 60%),
-    radial-gradient(ellipse 80% 80% at 50% 50%, #ffeb3b 0%, #ffc107 30%, #ff9800 60%, #f57c00 85%, #e65100 100%);
+    radial-gradient(ellipse 30% 20% at 30% 30%, rgba(255, 255, 255, 0.6), transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, #ffc107 0%, #ff9800 50%, #f57c00 100%);
   
-  /* SEM bordas quadradas - apenas sombra circular */
-  border: none;
-  
+  /* Sombra suave e simples */
   box-shadow: 
-    inset 0 8px 25px rgba(255, 255, 255, 0.6),
-    inset 0 -8px 25px rgba(204, 102, 0, 0.7),
-    inset 0 0 50px rgba(255, 193, 7, 0.3),
-    0 15px 40px rgba(0, 0, 0, 0.4),
-    0 0 80px rgba(255, 152, 0, 0.3);
+    inset 0 5px 15px rgba(255, 255, 255, 0.4),
+    inset 0 -5px 15px rgba(139, 69, 19, 0.3),
+    0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Frente da moeda */
@@ -406,7 +401,7 @@
   transform: rotateY(180deg) translateZ(5px);
 }
 
-/* Container interno da moeda */
+/* Container interno da moeda - simplificado */
 .coin-inner {
   position: relative;
   width: 100%;
@@ -414,126 +409,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
-/* Texto da moeda - mais parecido com a referência */
+/* Texto da moeda - simples como na foto */
 .coin-text {
-  font-size: 38px;
+  font-size: 42px;
   font-weight: 900;
   font-family: 'Arial Black', Arial, sans-serif;
   color: #d84315;
   text-shadow: 
-    0 2px 0 #f57c00,
-    0 4px 0 #e65100,
-    0 6px 15px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(255, 193, 7, 0.8);
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(255, 193, 7, 0.4);
   
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-align: center;
   z-index: 10;
-  
-  /* Efeito dourado em relevo como na foto */
-  background: linear-gradient(145deg, #fff176 0%, #ffeb3b 25%, #ffc107 50%, #ff9800 75%, #f57c00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  
-  /* Sombra de relevo profundo */
-  filter: 
-    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.8))
-    drop-shadow(0 0 20px rgba(255, 193, 7, 0.6));
 }
 
-/* Decorações da moeda */
-.coin-decoration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Anel decorativo - mais sutil como na referência */
-.coin-ring {
-  position: absolute;
-  top: 8%;
-  left: 8%;
-  width: 84%;
-  height: 84%;
-  border: 2px solid rgba(245, 124, 0, 0.5);
-  border-radius: 50%;
-  box-shadow: 
-    inset 0 0 20px rgba(255, 193, 7, 0.3),
-    inset 0 2px 6px rgba(255, 255, 255, 0.4),
-    inset 0 -2px 6px rgba(139, 69, 19, 0.3);
-}
-
-/* Pontos decorativos para CARA */
-.coin-dots {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.coin-dots span {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle, #ffab00, #e65100);
-  border-radius: 50%;
-  box-shadow: 
-    0 0 8px rgba(255, 171, 0, 0.9),
-    inset 0 1px 2px rgba(255, 255, 255, 0.6),
-    inset 0 -1px 2px rgba(139, 69, 19, 0.4);
-}
-
-.coin-dots span:nth-child(1) { top: -60px; left: -4px; }
-.coin-dots span:nth-child(2) { top: 56px; left: -4px; }
-.coin-dots span:nth-child(3) { left: -60px; top: -4px; }
-.coin-dots span:nth-child(4) { left: 56px; top: -4px; }
-
-/* Coroa decorativa para COROA */
-.coin-crown {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  color: #ffab00;
-  text-shadow: 
-    0 0 15px rgba(255, 171, 0, 0.9),
-    2px 2px 6px rgba(0, 0, 0, 0.7),
-    0 1px 0 #e65100;
-  filter: drop-shadow(0 0 8px rgba(255, 171, 0, 0.8));
-}
-
-/* Borda/espessura da moeda - lateral dourada como na foto */
+/* Borda/espessura da moeda - lateral simples */
 .coin-side .coin-edge {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotateX(90deg);
   width: 100%;
-  height: 30px;
-  background: 
-    linear-gradient(90deg,
-      #e65100 0%, 
-      #f57c00 15%, 
-      #ff9800 30%, 
-      #ffc107 50%, 
-      #ff9800 70%, 
-      #f57c00 85%, 
-      #e65100 100%
-    );
-  border-radius: 15px;
-  
+  height: 25px;
+  background: linear-gradient(90deg, #f57c00 0%, #ffc107 50%, #f57c00 100%);
+  border-radius: 12px;
   box-shadow: 
-    0 0 20px rgba(245, 124, 0, 0.6),
-    inset 0 3px 6px rgba(255, 255, 255, 0.4),
-    inset 0 -3px 6px rgba(139, 69, 19, 0.4);
+    0 0 15px rgba(245, 124, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 /* Linhas na borda */
