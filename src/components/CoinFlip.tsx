@@ -130,36 +130,94 @@ export function CoinFlip({ onBet, balance, disabled }: CoinFlipProps) {
           </div>
           
           <div className="relative perspective-1000">
-            {/* Moeda apenas visual */}
+            {/* Moeda visual com design melhorado */}
             <div 
-              className={`coin-3d ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
+              className={`coin-modern ${lastResult === 'coroa' ? 'show-coroa' : 'show-cara'} ${
                 isFlipping ? (turboMode ? 'animate-spin' : 'animate-spin') : ''
               } transition-transform duration-300`}
               style={{
                 width: '160px',
                 height: '160px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 30%, #FFD700 60%, #FFEF94 100%)',
+                boxShadow: isFlipping 
+                  ? '0 0 80px rgba(255, 215, 0, 0.9), inset 0 0 40px rgba(255, 255, 255, 0.3)' 
+                  : '0 20px 40px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2)',
+                border: '4px solid #B8860B',
+                position: 'relative',
                 transformStyle: 'preserve-3d',
-                transition: isFlipping ? 'none' : 'transform 0.6s, filter 0.3s',
-                filter: isFlipping ? 'drop-shadow(0 0 50px rgba(255, 215, 0, 0.8))' : 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.4))',
+                transition: isFlipping ? 'none' : 'transform 0.6s, box-shadow 0.3s',
                 animationDuration: isFlipping ? (turboMode ? '0.1s' : '0.3s') : '0s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
               }}
             >
-              {/* Lado CARA */}
-              <div className="coin-side coin-front">
-                <div className="coin-inner">
-                  <div className="coin-text">CARA</div>
-                </div>
+              {/* Anel interno decorativo */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: '15px',
+                  borderRadius: '50%',
+                  border: '2px solid #B8860B',
+                  opacity: 0.6
+                }}
+              />
+              
+              {/* Texto principal */}
+              <div
+                style={{
+                  fontSize: '24px',
+                  fontWeight: '900',
+                  color: '#8B4513',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)',
+                  zIndex: 1,
+                  letterSpacing: '2px'
+                }}
+              >
+                {lastResult ? lastResult.toUpperCase() : selectedChoice.toUpperCase()}
               </div>
-
-              {/* Lado COROA */}
-              <div className="coin-side coin-back">
-                <div className="coin-inner">
-                  <div className="coin-text">COROA</div>
+              
+              {/* Símbolo da coroa quando necessário */}
+              {(lastResult === 'coroa' || (!lastResult && selectedChoice === 'coroa')) && (
+                <div
+                  style={{
+                    fontSize: '32px',
+                    color: '#8B4513',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                    marginTop: '5px'
+                  }}
+                >
+                  ♔
                 </div>
-              </div>
-
-              {/* Borda da moeda */}
-              <div className="coin-edge"></div>
+              )}
+              
+              {/* Brilhos decorativos */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  left: '40px',
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%)',
+                  opacity: isFlipping ? 1 : 0.6
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50px',
+                  right: '30px',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%)',
+                  opacity: isFlipping ? 1 : 0.4
+                }}
+              />
             </div>
             
             {/* Status da moeda */}
